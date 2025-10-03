@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Products & Services - Byte Technology</title>
 
-  <!-- Bootstrap CSS -->
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <!-- Custom CSS -->
   <link rel="stylesheet" href="index.css">
-
-  <!-- Ionicons -->
+  <!-- Icons -->
   <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 </head>
 <body>
@@ -36,90 +34,107 @@
     </div>
   </nav>
 
-  <!-- Products Section -->
-  <section class="container mt-5 pt-5 text-light">
+  <!-- Products Grid -->
+  <main class="container mt-5 pt-5 text-light">
     <h1 class="section-title">Our <span>Products</span></h1>
-    <div class="row g-4">
 
-      <!-- Product 1 -->
-      <div class="col-md-4">
+    <div class="row g-4">
+      <!-- Product Card template: image, overlay on hover -->
+      <div class="col-sm-6 col-md-4">
         <div class="product-card">
           <img src="prod1.png" alt="Automated Garden Watering System">
           <div class="product-overlay">
-            <h4 class="fw-bold">Automated Garden Watering System</h4>
-            <p>Smart irrigation with soil moisture sensors for water efficiency.</p>
-            <p class="fw-bold text-warning">₱4,500</p>
-            <div class="d-flex justify-content-center gap-2">
-              <a href="order.html" class="btn btn-custom btn-sm">Add to Cart</a>
-              <a href="details.html" class="btn btn-outline-light btn-sm">View Details</a>
+            <h4>Automated Garden Watering System</h4>
+            <p class="small">Soil-moisture based irrigation to save water and prevent overwatering.</p>
+            <p class="price fw-bold text-warning">₱4,500</p>
+            <div class="d-flex gap-2">
+              <a class="btn btn-custom btn-sm" href="order.html?product=watering-system">Add to Cart</a>
+              <a class="btn btn-outline-light btn-sm" href="details.html?product=watering-system">View Details</a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Product 2 -->
-      <div class="col-md-4">
+      <div class="col-sm-6 col-md-4">
         <div class="product-card">
           <img src="prod2.png" alt="IoT Monitoring Sensors">
           <div class="product-overlay">
-            <h4 class="fw-bold">IoT Monitoring Sensors</h4>
-            <p>Real-time monitoring of soil, humidity, and temperature.</p>
-            <p class="fw-bold text-warning">₱2,000</p>
-            <div class="d-flex justify-content-center gap-2">
-              <a href="order.html" class="btn btn-custom btn-sm">Add to Cart</a>
-              <a href="details.html" class="btn btn-outline-light btn-sm">View Details</a>
+            <h4>IoT Monitoring Sensors</h4>
+            <p class="small">Soil, humidity and temperature sensors with wireless module.</p>
+            <p class="price fw-bold text-warning">₱2,000</p>
+            <div class="d-flex gap-2">
+              <a class="btn btn-custom btn-sm" href="order.html?product=iot-sensors">Add to Cart</a>
+              <a class="btn btn-outline-light btn-sm" href="details.html?product=iot-sensors">View Details</a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Product 3 -->
-      <div class="col-md-4">
+      <div class="col-sm-6 col-md-4">
         <div class="product-card">
           <img src="prod3.png" alt="Custom IoT Kits">
           <div class="product-overlay">
-            <h4 class="fw-bold">Custom IoT Kits</h4>
-            <p>Tailored solutions with essential sensors and controllers.</p>
-            <p class="fw-bold text-warning">₱6,000</p>
-            <div class="d-flex justify-content-center gap-2">
-              <a href="order.html" class="btn btn-custom btn-sm">Add to Cart</a>
-              <a href="details.html" class="btn btn-outline-light btn-sm">View Details</a>
+            <h4>Custom IoT Kits</h4>
+            <p class="small">Prepackaged sensor kits and controllers for small/medium farms.</p>
+            <p class="price fw-bold text-warning">₱6,000</p>
+            <div class="d-flex gap-2">
+              <a class="btn btn-custom btn-sm" href="order.html?product=iot-kit">Add to Cart</a>
+              <a class="btn btn-outline-light btn-sm" href="details.html?product=iot-kit">View Details</a>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- add more product cards as needed -->
     </div>
-  </section>
 
-  <!-- Services Section -->
-  <section class="container mt-5 text-light">
-    <h1 class="section-title">Our <span>Services</span></h1>
+    <!-- Services -->
+    <h2 class="section-title mt-5">Our <span>Services</span></h2>
     <div class="row g-4">
-      <div class="col-md-4"><div class="card custom-card p-4 h-100"><h4 class="fw-bold text-warning">Maintenance</h4><p>Regular servicing and troubleshooting of IoT systems.</p></div></div>
-      <div class="col-md-4"><div class="card custom-card p-4 h-100"><h4 class="fw-bold text-warning">Replacement</h4><p>Quick replacement of defective sensors and parts.</p></div></div>
-      <div class="col-md-4"><div class="card custom-card p-4 h-100"><h4 class="fw-bold text-warning">Layout Design</h4><p>Expert system design tailored for farms and gardens.</p></div></div>
-      <div class="col-md-6"><div class="card custom-card p-4 h-100"><h4 class="fw-bold text-warning">Consultation</h4><p>Personalized advice and technical support for smart farming adoption.</p></div></div>
-      <div class="col-md-6"><div class="card custom-card p-4 h-100"><h4 class="fw-bold text-warning">Training</h4><p>Guidance for staff and clients on using and managing IoT tools.</p></div></div>
+      <div class="col-md-4">
+        <div class="custom-card p-4 h-100">
+          <h5 class="text-warning fw-bold">Maintenance</h5>
+          <p class="mb-0">Regular servicing and troubleshooting for IoT systems and sensors.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="custom-card p-4 h-100">
+          <h5 class="text-warning fw-bold">Replacement</h5>
+          <p class="mb-0">Replacement of defective parts and sensors (warranty terms apply).</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="custom-card p-4 h-100">
+          <h5 class="text-warning fw-bold">Layout Design & Consultation</h5>
+          <p class="mb-0">On-site layout planning and technical consultation for system deployment.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="custom-card p-4 h-100">
+          <h5 class="text-warning fw-bold">Training</h5>
+          <p class="mb-0">Hands-on training and documentation for users and staff.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="custom-card p-4 h-100">
+          <h5 class="text-warning fw-bold">System Integration (Future)</h5>
+          <p class="mb-0">Planning for IoT dashboards and remote monitoring (planned for later versions).</p>
+        </div>
+      </div>
     </div>
-  </section>
+
+  </main>
 
   <!-- Footer -->
-  <footer class="text-light text-center py-3 mt-auto bg-transparent">
-    <p class="mb-0">
-      &copy; 2025 Byte Technology | All Rights Reserved |
-      <a href="contact.html" class="footer-link">Contact Us</a>
-    </p>
-    <div class="mt-2">
-      <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-      <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-      <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-      <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
-      <a href="#"><ion-icon name="logo-google"></ion-icon></a>
-    </div>
+  <footer class="text-light text-center py-3 mt-5 bg-transparent">
+    <p class="mb-0">&copy; 2025 Byte Technology | All Rights Reserved | <a href="contact.html" class="footer-link">Contact Us</a></p>
+    <div class="mt-2"><a href="#"><ion-icon name="logo-facebook"></ion-icon></a> <a href="#"><ion-icon name="logo-instagram"></ion-icon></a> <a href="#"><ion-icon name="logo-twitter"></ion-icon></a></div>
   </footer>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
