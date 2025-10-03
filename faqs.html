@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQs - Byte Technology</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="index.css">
+
+  <!-- Ionicons -->
+  <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+    <div class="container">
+      <a class="navbar-brand logo fw-bold" href="index.html">Byte Technology</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav mx-auto nav-custom">
+          <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">ABOUT</a></li>
+          <li class="nav-item"><a class="nav-link" href="prodserv.html">PRODUCTS/SERVICES</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+          <li class="nav-item"><a class="nav-link active" href="faqs.html">FAQ</a></li>
+        </ul>
+        <a href="login.html" target="_blank" class="btn btn-custom ms-lg-3">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- FAQ Section -->
+  <section class="container mt-5 pt-5 text-light">
+    <h1 class="section-title">Frequently Asked <span>Questions</span></h1>
+    <div class="accordion" id="faqAccordion">
+
+      <!-- Q1 -->
+      <div class="accordion-item custom-card">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            How does the Automated Garden Watering System work?
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            It uses soil moisture sensors to measure dryness levels and activates water flow only when needed, ensuring efficient water use and preventing overwatering.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="accordion-item custom-card">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Do you deliver nationwide?
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, we accept inquiries across the Philippines. Delivery coverage may vary by region.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="accordion-item custom-card">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Is there training available?
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, we provide training sessions and user manuals to guide clients in managing their IoT systems.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="accordion-item custom-card">
+        <h2 class="accordion-header" id="headingFour">
+          <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            Can I pay online?
+          </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Online payments are not yet supported, but we plan to integrate e-commerce in the future.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="accordion-item custom-card">
+        <h2 class="accordion-header" id="headingFive">
+          <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            What happens if my device breaks?
+          </button>
+        </h2>
+        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Our maintenance and replacement service covers defective parts and faulty sensors.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-light text-center py-3 mt-auto bg-transparent">
+    <p class="mb-0">
+      &copy; 2025 Byte Technology | All Rights Reserved |
+      <a href="contact.html" class="footer-link">Contact Us</a>
+    </p>
+    <div class="mt-2">
+      <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+      <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+      <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+      <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+      <a href="#"><ion-icon name="logo-google"></ion-icon></a>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

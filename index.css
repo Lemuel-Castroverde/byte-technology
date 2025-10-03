@@ -1,0 +1,189 @@
+/* ===== 1. Global Styles (shared across all pages) ===== */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url("1.jpg") center/cover no-repeat;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.section-title span {
+  color: #ff7200;
+}
+
+/* ===== 2. Navbar (all pages) ===== */
+.logo {
+  color: #ff7200 !important;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.nav-custom .nav-link {
+  font-size: 16px;
+  margin: 0 12px;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
+  color: white;
+}
+.nav-custom .nav-link:hover,
+.nav-custom .nav-link.active {
+  color: #ff7200 !important;
+  font-weight: bold;
+}
+
+.custom-navbar {
+  background: linear-gradient(rgba(255,255,255,0.25), rgba(255,255,255,0.05));
+  border-radius: 12px;
+  border: none;
+}
+
+/* ===== 3. Hero Section (index.html only) ===== */
+.hero {
+  min-height: 80vh;
+  padding-top: 100px;
+}
+.hero span {
+  color: #ff7200;
+  font-size: 60px;
+}
+
+/* ===== 4. Buttons (shared) ===== */
+.btn-custom {
+  background-color: #ff7200;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  transition: 0.3s ease;
+}
+.btn-custom:hover {
+  background-color: #fff;
+  color: #ff7200;
+  font-weight: bold;
+}
+
+/* ===== 5. Login & Signup Pages ===== */
+.login-card {
+  width: 350px;
+  background: rgba(0,0,0,0.85);
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+}
+.login-card h2 {
+  background: #ff7200;
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* ===== 6. About Page ===== */
+.about-card {
+  backdrop-filter: blur(6px);
+  background: linear-gradient(rgba(255,255,255,0.25), rgba(255,255,255,0.05));
+  border-radius: 12px;
+  transition: transform 0.2s ease-in-out;
+}
+.about-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ===== 7. Products & Services Page ===== */
+/* Service Cards */
+.custom-card {
+  backdrop-filter: blur(6px);
+  background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.15));
+  border-radius: 12px;
+  transition: transform 0.2s ease-in-out;
+}
+.custom-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Product Catalog */
+.product-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  cursor: pointer;
+}
+.product-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.product-card:hover img {
+  transform: scale(1.1);
+}
+.product-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  text-align: center;
+  padding: 20px;
+}
+.product-card:hover .product-overlay {
+  opacity: 1;
+}
+.product-overlay h4 {
+  margin-bottom: 10px;
+}
+.product-overlay p {
+  font-size: 14px;
+}
+
+/* ===== 8. Contact Page ===== */
+.inquiry-card {
+  backdrop-filter: blur(6px);
+  background: linear-gradient(rgba(255,255,255,0.25), rgba(255,255,255,0.05));
+  border-radius: 12px;
+}
+
+/* ===== 9. FAQ Page ===== */
+/* Uses Bootstrap accordion, but can style with custom-card */
+.accordion .accordion-item {
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.accordion-button {
+  font-weight: bold;
+}
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+/* ===== 10. Footer (all pages) ===== */
+footer a.footer-link {
+  color: #ff7200;
+  font-weight: bold;
+  text-decoration: none;
+}
+footer a.footer-link:hover {
+  color: #fff;
+}
+footer ion-icon {
+  color: #fff;
+  margin: 0 5px;
+  transition: 0.3s ease;
+}
+footer ion-icon:hover {
+  color: #ff7200;
+}
