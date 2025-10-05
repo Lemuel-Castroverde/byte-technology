@@ -151,6 +151,7 @@ body {
 .accordion .accordion-item{ border-radius:12px; overflow:hidden; margin-bottom:10px; }
 .accordion-button{ font-weight:700; }
 .accordion-button:focus{ box-shadow:none; }
+.accordion-body{ color:#fff; }
 
 /* ===== 10. Footer (shared) ===== */
 footer{ margin-top:auto; }
