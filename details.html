@@ -4,12 +4,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Product Details - Byte Technology</title>
+
+        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
 
-        <!-- Header -->
+        <!-- Header & NavBar -->
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark" style="background: transparent;">
                 <div class="container">
@@ -37,8 +41,10 @@
             </nav>
         </header>
 
-        <!-- Product Details Section -->
+        <!-- Main Contents -->
         <main class="container mt-5 mb-5 text-center text-lg-start">
+
+            <!-- Product Details Section -->
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-5 text-center mb-4">
                     <img id="product-img" src="" alt="Product Image" class="img-fluid rounded shadow-lg" style="max-height: 400px; object-fit: cover;">
@@ -63,10 +69,46 @@
 
         <!-- Footer -->
         <footer>
-            <p>&copy; 2025 Byte Technology | All Rights Reserved |
-                <a href="contact.html" class="footer-link">Contact Us</a>
-            </p>
+            <div class="container py-4 text-center">
+                <div class="row justify-content-center">
+
+                    <!-- Company Information -->
+                    <div class="col-md-4 mb-3">
+                        <h5 class="text-warning fw-bold">Company Information</h5>
+                        <p>
+                            Byte Technology is a tech-driven company that provides innovative IoT-based
+                            agricultural solutions to modernize and simplify farming operations.
+                        </p>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="col-md-4 mb-3">
+                        <h5 class="text-warning fw-bold">Contact Details</h5>
+                        <p class="mb-1">📍 Manila, Philippines</p>
+                        <p class="mb-1">☎ +63 900 000 0000</p>
+                        <p class="mb-1">✉ info@bytetech.com</p>
+                        <p>⏰ Mon–Fri, 9:00 AM–6:00 PM</p>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="col-md-3 mb-3">
+                        <h5 class="text-warning fw-bold">Follow Us</h5>
+                        <div class="social-icons d-flex justify-content-center">
+                            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-youtube"></ion-icon></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </footer>
+        
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Ionicons -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
         <!-- JS Logic -->
         <script>
@@ -137,12 +179,5 @@
             });
         </script>
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        
-        <!-- Ionicons -->
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-        
     </body>
 </html>
