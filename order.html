@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Your Cart - Byte Technology</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+
+        <style>
+            /* Cart item animation */
+            .removing {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.4s ease;
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- ===== HEADER ===== -->
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background: transparent;">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-warning" href="index.html">Byte Technology</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="prodserv.html">Products/Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faqs.html">FAQ</a></li>
+                </ul>
+                <a href="login.html" target="_blank" class="btn btn-custom ms-lg-3 mt-3 mt-lg-0">Login / Sign Up</a>
+                </div>
+            </div>
+            </nav>
+        </header>
+
+        <!-- ===== CART SECTION ===== -->
+        <main class="container my-5 text-center">
+            <h2 class="display-5 fw-bold mb-4">Your <span>Shopping Cart</span></h2>
+
+            <div id="cart-items" class="row justify-content-center"></div>
+
+            <div id="cart-summary" class="mt-4">
+            <h4 class="text-warning">Total: ₱<span id="cart-total">0.00</span></h4>
+
+            <div class="mt-3 d-flex justify-content-center gap-3 flex-wrap">
+                <a href="prodserv.html" class="btn btn-outline-light">← Continue Shopping</a>
+                <button id="checkout-btn" class="btn btn-custom">Proceed to Checkout</button>
+            </div>
+            </div>
+        </main>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <div class="container py-4 text-center">
+                <div class="row justify-content-center">
+
+                    <!-- Company Information -->
+                    <div class="col-md-4 mb-3">
+                        <h5 class="text-warning fw-bold">Company Information</h5>
+                        <p>
+                            Byte Technology is a tech-driven company that provides innovative IoT-based
+                            agricultural solutions to modernize and simplify farming operations.
+                        </p>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="col-md-4 mb-3">
+                        <h5 class="text-warning fw-bold">Contact Details</h5>
+                        <p class="mb-1">📍 Manila, Philippines</p>
+                        <p class="mb-1">☎ +63 900 000 0000</p>
+                        <p class="mb-1">✉ info@bytetech.com</p>
+                        <p>⏰ Mon–Fri, 9:00 AM–6:00 PM</p>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="col-md-3 mb-3">
+                        <h5 class="text-warning fw-bold">Follow Us</h5>
+                        <div class="social-icons d-flex justify-content-center">
+                            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-youtube"></ion-icon></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+        <!-- ===== JS ===== -->
+        <script>
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            function renderCart() {
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-light">Your cart is empty.</p>';
+                cartTotal.textContent = '0.00';
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('col-md-8', 'mb-3');
+                cartItem.innerHTML = `
+                <div class="card bg-dark text-light shadow-lg p-3 d-flex flex-row align-items-center justify-content-between">
+                    <!-- Left: image + text -->
+                    <div class="d-flex align-items-center text-start flex-grow-1 gap-3">
+                    <img src="${item.img}" alt="${item.name}" class="rounded" 
+                        style="width:100px; height:100px; object-fit:cover;">
+                    <div>
+                        <h5 class="mb-1 text-warning">${item.name}</h5>
+                        <p class="mb-0">₱${item.price.toLocaleString()} each</p>
+                        <small>Quantity: ${item.quantity}</small>
+                    </div>
+                    </div>
+
+                    <!-- Right: buttons -->
+                    <div class="d-flex align-items-center justify-content-end gap-2 flex-wrap ms-3">
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-outline-light btn-sm minus">-</button>
+                        <span class="mx-2 fw-bold">${item.quantity}</span>
+                        <button class="btn btn-outline-light btn-sm plus">+</button>
+                    </div>
+                    <button class="btn btn-danger btn-sm ms-2 remove-btn">Remove</button>
+                    </div>
+                </div>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+
+                // Quantity handlers
+                const plus = cartItem.querySelector('.plus');
+                const minus = cartItem.querySelector('.minus');
+                const removeBtn = cartItem.querySelector('.remove-btn');
+
+                plus.addEventListener('click', () => {
+                item.quantity++;
+                updateCart();
+                });
+
+                minus.addEventListener('click', () => {
+                if (item.quantity > 1) item.quantity--;
+                else removeItem(index);
+                updateCart();
+                });
+
+                removeBtn.addEventListener('click', () => removeItem(index));
+            });
+
+            cartTotal.textContent = total.toLocaleString(undefined, { minimumFractionDigits: 2 });
+            }
+
+            function removeItem(index) {
+            const card = cartItemsContainer.children[index];
+            if (card) {
+                card.classList.add('removing');
+                setTimeout(() => {
+                cart.splice(index, 1);
+                updateCart();
+                }, 400);
+            }
+            }
+
+            function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+            }
+
+            document.getElementById('checkout-btn').addEventListener('click', () => {
+            alert('Proceeding to checkout...');
+            });
+
+            renderCart();
+        </script>
+
+        <!-- Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Ionicons -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    </body>
+</html>

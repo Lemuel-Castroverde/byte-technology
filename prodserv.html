@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Products & Services - Byte Technology</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+        <!-- ===== HEADER / NAVBAR ===== -->
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background: transparent;">
+                <div class="container d-flex align-items-center justify-content-between">
+                    
+                    <!-- Left: Logo -->
+                    <a class="navbar-brand fw-bold text-warning me-3" href="index.html">
+                        Byte Technology
+                    </a>
+
+                    <!-- Toggler for mobile -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Center: Navigation Links -->
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="prodserv.html">Products/Services</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="faqs.html">FAQ</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Right: Cart + Login -->
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0 position-relative">
+                        <div id="cart-container">
+                            <a href="order.html" class="btn btn-outline-warning" id="cart-btn">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+
+                            <!-- Hover Cart Preview -->
+                            <div id="cart-preview" class="shadow-lg">
+                                <h6 class="fw-bold text-warning mb-2">Your Cart</h6>
+                                <ul id="cart-preview-items" class="list-unstyled mb-2"></ul>
+                                <a href="order.html" class="btn btn-sm btn-warning text-dark fw-bold">View Cart</a>
+                            </div>
+                        </div>
+                        <a href="login.html" target="_blank" class="btn btn-custom">Login / Sign Up</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="container text-center">
+            <h2 class="display-5 fw-bold mb-4">Our <span>Products</span></h2>
+
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="prod1.png" alt="Automated Garden Watering System">
+                    <h3>Automated Garden Watering System</h3>
+                    <div class="product-overlay">
+                        <p>Uses soil moisture sensors to monitor hydration levels and supply water only when needed.</p>
+                        <p class="fw-bold text-warning">₱3,499</p>
+                        <div>
+                            <button class="btn btn-custom add-to-cart">Add to Cart</button>
+                            <a href="details.html?id=1" class="btn btn-custom">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="prod2.png" alt="IoT Monitoring Sensors">
+                    <h3>IoT Monitoring Sensors</h3>
+                    <div class="product-overlay">
+                        <p>Monitor temperature, humidity, and soil health in real time for smart, data-driven farming.</p>
+                        <p class="fw-bold text-warning">₱2,899</p>
+                        <div>
+                            <button class="btn btn-custom add-to-cart">Add to Cart</button>
+                            <a href="details.html?id=2" class="btn btn-custom">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="prod3.png" alt="Custom IoT Kits">
+                    <h3>Custom IoT Kits</h3>
+                    <div class="product-overlay">
+                        <p>Tailored IoT packages including essential sensors and controllers for your smart farm setup.</p>
+                        <p class="fw-bold text-warning">₱4,299</p>
+                        <div>
+                            <button class="btn btn-custom add-to-cart">Add to Cart</button>
+                            <a href="details.html?id=3" class="btn btn-custom">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== SERVICES SECTION ===== -->
+            <h2 class="display-5 fw-bold mt-5 mb-4">Our <span>Services</span></h2>
+
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-3">
+                    <div class="about-card h-100">
+                        <h4 class="fw-bold text-warning">Maintenance</h4>
+                        <p>Regular servicing and troubleshooting of IoT systems to ensure long-term reliability.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="about-card h-100">
+                        <h4 class="fw-bold text-warning">Replacement</h4>
+                        <p>Quick replacement of defective sensors and hardware components to minimize downtime.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="about-card h-100">
+                        <h4 class="fw-bold text-warning">Layout Design</h4>
+                        <p>Custom system layouts designed for farms and gardens of any size and structure.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="about-card h-100">
+                        <h4 class="fw-bold text-warning">Consultation</h4>
+                        <p>Expert technical advice and personalized IoT integration planning for your needs.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="about-card h-100">
+                        <h4 class="fw-bold text-warning">Training</h4>
+                        <p>Hands-on training for farmers and staff to operate and maintain Byte Tech systems effectively.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <div class="container py-4 text-center">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 mb-3">
+                        <h5 class="text-warning fw-bold">Company Information</h5>
+                        <p>Byte Technology provides innovative IoT-based agricultural solutions to modernize farming.</p>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <h5 class="text-warning fw-bold">Contact Details</h5>
+                        <p>📍 Manila, Philippines</p>
+                        <p>☎ +63 900 000 0000</p>
+                        <p>✉ info@bytetech.com</p>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <h5 class="text-warning fw-bold">Follow Us</h5>
+                        <div class="social-icons d-flex justify-content-center">
+                            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-youtube"></ion-icon></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Floating Popup -->
+        <div id="cart-popup">Added to Cart!</div>
+
+        <!-- Bootstrap & Ionicons -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+        <!-- Cart Functionality -->
+        <script>
+            const cartPopup = document.getElementById('cart-popup');
+            const cartCount = document.getElementById('cart-count');
+            const preview = document.getElementById('cart-preview');
+            const previewList = document.getElementById('cart-preview-items');
+            const addButtons = document.querySelectorAll('.add-to-cart');
+
+            function showPopup() {
+                cartPopup.classList.add('show');
+                setTimeout(() => cartPopup.classList.remove('show'), 1200);
+            }
+
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = total;
+            }
+
+            function updateCartPreview() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                previewList.innerHTML = cart.length ? "" : "<li>No items in cart</li>";
+                cart.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = `${item.name} × ${item.quantity}`;
+                    previewList.appendChild(li);
+                });
+            }
+
+            addButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const card = btn.closest('.product-card');
+                    const name = card.querySelector('h3').textContent;
+                    const price = parseFloat(card.querySelector('.fw-bold.text-warning').textContent.replace(/[₱,]/g, ''));
+                    const img = card.querySelector('img').src;
+
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    const existing = cart.find(item => item.name === name);
+                    if (existing) existing.quantity++;
+                    else cart.push({ name, price, img, quantity: 1 });
+                    localStorage.setItem('cart', JSON.stringify(cart));
+
+                    showPopup();
+                    updateCartCount();
+                    updateCartPreview();
+                });
+            });
+
+            updateCartCount();
+            updateCartPreview();
+
+            // Hover Preview Logic
+            const cartContainer = document.getElementById('cart-container');
+            cartContainer.addEventListener('mouseenter', () => preview.classList.add('show'));
+            cartContainer.addEventListener('mouseleave', () => preview.classList.remove('show'));
+        </script>
+    </body>
+</html>

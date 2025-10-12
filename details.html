@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Product Details - Byte Technology</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+        <!-- Header -->
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background: transparent;">
+                <div class="container">
+                    <!-- Logo / Brand -->
+                    <a class="navbar-brand fw-bold text-warning" href="index.html">
+                        Byte Technology
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="prodserv.html">Products/Services</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="faqs.html">FAQ</a></li>
+                        </ul>
+
+                        <a href="login.html" target="_blank" class="btn btn-custom ms-lg-3 mt-3 mt-lg-0">Login / Sign Up</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Product Details Section -->
+        <main class="container mt-5 mb-5 text-center text-lg-start">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-5 text-center mb-4">
+                    <img id="product-img" src="" alt="Product Image" class="img-fluid rounded shadow-lg" style="max-height: 400px; object-fit: cover;">
+                </div>
+
+                <div class="col-lg-7">
+                    <h2 id="product-name" class="text-warning fw-bold"></h2>
+                    <p id="product-desc" class="lead mt-3"></p>
+
+                    <h4 class="text-warning mt-4">Included Components:</h4>
+                    <ul id="product-components" class="list-unstyled fs-5"></ul>
+
+                    <p id="product-price" class="fw-bold mt-3"></p>
+
+                    <div class="mt-4 d-flex flex-wrap gap-3">
+                        <button class="btn btn-warning text-dark fw-bold px-4">Add to Cart</button>
+                        <a href="prodserv.html" class="btn btn-outline-light fw-bold px-4">Go Back</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 Byte Technology | All Rights Reserved |
+                <a href="contact.html" class="footer-link">Contact Us</a>
+            </p>
+        </footer>
+
+        <!-- JS Logic -->
+        <script>
+            const products = {
+                "1": {
+                    name: "Automated Garden Watering System",
+                    img: "prod1.png",
+                    desc: "An IoT-powered irrigation setup that automatically waters plants when the soil is dry. Perfect for gardens, greenhouses, or small farms.",
+                    price: "₱3,499.00",
+                    components: [
+                        "Arduino Uno R3",
+                        "Soil Moisture Sensors (x2)",
+                        "Relay Module",
+                        "Mini Water Pump",
+                        "12V Power Adapter",
+                        "Jumper Wires",
+                        "Clear PVC Tubing"
+                    ]
+                },
+                "2": {
+                    name: "IoT Monitoring Sensors",
+                    img: "prod2.png",
+                    desc: "Real-time monitoring of soil moisture, temperature, and humidity. Ideal for data-driven farming and automation projects.",
+                    price: "₱2,899.00",
+                    components: [
+                        "DHT22 Sensor",
+                        "Soil Moisture Sensor",
+                        "ESP8266 Wi-Fi Module",
+                        "Arduino Nano",
+                        "OLED Display Module",
+                        "Jumper Wires & Breadboard",
+                        "Power Cable"
+                    ]
+                },
+                "3": {
+                    name: "Custom IoT Kits",
+                    img: "prod3.png",
+                    desc: "Build your own IoT system for agriculture, automation, or research. Flexible and educational setup for all levels.",
+                    price: "₱4,999.00",
+                    components: [
+                        "Arduino Uno / ESP8266",
+                        "DHT11 / DHT22 Sensor",
+                        "Soil Moisture Sensor",
+                        "4-Channel Relay Module",
+                        "Breadboard & Jumper Wires",
+                        "Power Supply",
+                        "User Manual / Quick Start Guide"
+                    ]
+                }
+            };
+
+            // Get product ID from URL (e.g., details.html?id=1)
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get("id");
+
+            const product = products[id] || products["1"]; // default to first product
+
+            document.getElementById("product-img").src = product.img;
+            document.getElementById("product-name").textContent = product.name;
+            document.getElementById("product-desc").textContent = product.desc;
+            document.getElementById("product-price").textContent = "Price: " + product.price;
+
+            const list = document.getElementById("product-components");
+            product.components.forEach(c => {
+                const li = document.createElement("li");
+                li.textContent = "• " + c;
+                list.appendChild(li);
+            });
+        </script>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Ionicons -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        
+    </body>
+</html>
