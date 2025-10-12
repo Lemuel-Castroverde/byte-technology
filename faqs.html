@@ -173,6 +173,19 @@
         <!-- Ionicons -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+        <!-- Custom JS to Disable Right-Click and Keyboard Shortcuts -->
+        <script>
+            // Disable right-click
+            document.addEventListener('contextmenu', event => event.preventDefault());
+
+            // Disable Ctrl+A, Ctrl+C, Ctrl+X, Ctrl+S, Ctrl+U
+            document.addEventListener('keydown', event => {
+                if (event.ctrlKey && ['a', 'c', 'x', 's', 'u'].includes(event.key.toLowerCase())) {
+                    event.preventDefault();
+                }
+            });
+        </script>
         
     </body>
 </html>
