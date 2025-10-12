@@ -209,11 +209,22 @@
                     const price = parseFloat(card.querySelector('.fw-bold.text-warning').textContent.replace(/[₱,]/g, ''));
                     const img = card.querySelector('img').src;
 
+<<<<<<< HEAD
                     let cart = JSON.parse(localStorage.getItem('cart')) || [];
                     const existing = cart.find(item => item.name === name);
                     if (existing) existing.quantity++;
                     else cart.push({ name, price, img, quantity: 1 });
                     localStorage.setItem('cart', JSON.stringify(cart));
+=======
+  <!-- Footer -->
+  <footer class="text-light text-center py-3 mt-auto bg-transparent">
+    <div class="mt-2">
+      <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+      <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+      <a href="#"><ion-icon name="logo-google"></ion-icon></a>
+    </div>
+  </footer>
+>>>>>>> bb090a8963adee6e16d32e057047aa5f4a9f7092
 
                     showPopup();
                     updateCartCount();
