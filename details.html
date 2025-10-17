@@ -16,9 +16,9 @@
         <!-- Header & NavBar -->
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark" style="background: transparent;">
-                <div class="container">
+                <div class="container d-flex align-items-center justify-content-between">
                     <!-- Logo / Brand -->
-                    <a class="navbar-brand fw-bold text-warning" href="index.html">
+                    <a class="navbar-brand fw-bold text-warning me-3" href="index.html">
                         Byte Technology
                     </a>
 
@@ -27,15 +27,31 @@
                     </button>
 
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                        <ul class="navbar-nav">
+                        <ul class="navbar-nav mx-auto">
                             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                             <li class="nav-item"><a class="nav-link active" href="prodserv.html">Products/Services</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                             <li class="nav-item"><a class="nav-link" href="faqs.html">FAQ</a></li>
                         </ul>
+                    </div>
 
-                        <a href="login.html" target="_blank" class="btn btn-custom ms-lg-3 mt-3 mt-lg-0">Login / Sign Up</a>
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0 position-relative">
+                        <div id="cart-container">
+                            <a href="order.html" class="btn btn-outline-warning" id="cart-btn">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+
+                            <div id="cart-preview" class="shadow-lg">
+                                <h6 class="fw-bold text-warning mb-2">Your Cart</h6>
+                                <ul id="cart-preview-items" class="list-unstyled mb-2"></ul>
+                                <a href="order.html" class="btn btn-sm btn-warning text-dark fw-bold">View Cart</a>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-custom ms-lg-3 mt-3 mt-lg-0" data-bs-toggle="modal" data-bs-target="#loginModal">
+                             Login / Sign Up 
+                        </button>
                     </div>
                 </div>
             </nav>
@@ -60,12 +76,141 @@
                     <p id="product-price" class="fw-bold mt-3"></p>
 
                     <div class="mt-4 d-flex flex-wrap gap-3">
-                        <button class="btn btn-warning text-dark fw-bold px-4">Add to Cart</button>
+                        <button id="addToCartBtn" class="btn btn-warning text-dark fw-bold px-4">Add to Cart</button>
                         <a href="prodserv.html" class="btn btn-outline-light fw-bold px-4">Go Back</a>
                     </div>
                 </div>
             </div>
         </main>
+        
+        <!-- Cart Popup Notification -->
+        <div id="cart-popup">Added to Cart!</div>
+        <script>
+            const cartPopup = document.getElementById('cart-popup');
+            const cartCount = document.getElementById('cart-count');
+            const previewList = document.getElementById('cart-preview-items');
+
+            // --- Helper Functions (copied from prodserv.html) ---
+            function showPopup() {
+                cartPopup.classList.add('show');
+                setTimeout(() => cartPopup.classList.remove('show'), 1200);
+            }
+
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = total;
+            }
+
+            function updateCartPreview() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                previewList.innerHTML = cart.length ? "" : "<li>No items in cart</li>";
+                cart.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = `${item.name} × ${item.quantity}`;
+                    previewList.appendChild(li);
+                });
+            }
+
+            // --- Event Listener for the "Add to Cart" button ---
+            document.getElementById('addToCartBtn').addEventListener('click', () => {
+                // The 'product' object is already available from the script above it
+                const name = product.name;
+                const price = parseFloat(product.price.replace(/[₱,]/g, ''));
+                const img = product.img;
+
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const existingItem = cart.find(item => item.name === name);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ name, price, img, quantity: 1 });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                showPopup();
+                updateCartCount();
+                updateCartPreview();
+            });
+
+            // --- Hover Preview Logic (copied from prodserv.html) ---
+            const cartContainer = document.getElementById('cart-container');
+            cartContainer.addEventListener('mouseenter', () => document.getElementById('cart-preview').classList.add('show'));
+            cartContainer.addEventListener('mouseleave', () => document.getElementById('cart-preview').classList.remove('show'));
+
+            // --- Initial Load ---
+            updateCartCount();
+            updateCartPreview();
+        </script>
+
+        <!-- Login Code -->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content login-card"> <div class="modal-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="text-warning fw-bold m-0">Login</h2>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label text-light">Email</label>
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-light">Password</label>
+                                <input type="password" class="form-control" placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" class="btn btn-custom w-100 mb-2">Login</button>
+                        </form>
+
+                        <p class="text-center mt-3">
+                            Don’t have an account?
+                            <a href="#" id="switchToSignup" class="text-warning text-decoration-none fw-bold">Create Account</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content login-card"> <div class="modal-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="text-warning fw-bold m-0">Create Account</h2>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label text-light">Full Name</label>
+                                <input type="text" class="form-control" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-light">Email</label>
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-light">Password</label>
+                                <input type="password" class="form-control" placeholder="Create a password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-light">Confirm Password</label>
+                                <input type="password" class="form-control" placeholder="Re-enter your password" required>
+                            </div>
+                            <button type="submit" class="btn btn-custom w-100 mb-2">Sign Up</button>
+                        </form>
+
+                        <p class="text-center mt-3">
+                            Already have an account?
+                            <a href="#" id="switchToLogin" class="text-warning text-decoration-none fw-bold">Back to Login</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Footer -->
         <footer>
@@ -102,14 +247,52 @@
                 </div>
             </div>
         </footer>
-        
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        
-        <!-- Ionicons -->
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
+        <!-- JS to Switch Between Login and Signup Modals -->
+        <script>
+            const loginModalEl = document.getElementById('loginModal');
+            const signupModalEl = document.getElementById('signupModal');
+
+            loginModalEl.addEventListener('hidden.bs.modal', function (event) {
+                loginModalEl.querySelector('form').reset();
+            });
+
+            signupModalEl.addEventListener('hidden.bs.modal', function (event) {
+                signupModalEl.querySelector('form').reset();
+            });
+            
+            let openSignupModal = false;
+            let openLoginModal = false;
+
+            loginModalEl.addEventListener('hidden.bs.modal', function (event) {
+                if (openSignupModal) {
+                    const signupModal = new bootstrap.Modal(signupModalEl);
+                    signupModal.show();
+                    openSignupModal = false;
+                }
+            });
+
+            signupModalEl.addEventListener('hidden.bs.modal', function (event) {
+                if (openLoginModal) {
+                    const loginModal = new bootstrap.Modal(loginModalEl);
+                    loginModal.show();
+                    openLoginModal = false;
+                }
+            });
+
+            document.getElementById('switchToSignup').addEventListener('click', function (e) {
+                e.preventDefault();
+                openSignupModal = true;
+                bootstrap.Modal.getInstance(loginModalEl).hide();
+            });
+
+            document.getElementById('switchToLogin').addEventListener('click', function (e) {
+                e.preventDefault();
+                openLoginModal = true;
+                bootstrap.Modal.getInstance(signupModalEl).hide();
+            });
+        </script>
+        
         <!-- JS Logic -->
         <script>
             const products = {
@@ -191,6 +374,14 @@
                 }
             });
         </script>
+        
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Ionicons -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 
     </body>
 </html>

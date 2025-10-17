@@ -490,11 +490,17 @@ footer hr {
 
 /*===== Login Page =====*/
 .login-card {
-    background: rgba(0,0,0,0.7);
+    background-color: #1c1c1c;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     color: white;
     width: 100%;
     max-width: 400px;
+}
+
+.modal-backdrop {
+    backdrop-filter: blur(30px);
+    background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .login-card input {
@@ -521,3 +527,4 @@ footer hr {
     color: #ff7200;
     font-weight: bold;
 }
+
