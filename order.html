@@ -7,6 +7,8 @@
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
         <link rel="stylesheet" href="styles.css">
 
         <style>
@@ -40,10 +42,17 @@
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                             <li class="nav-item"><a class="nav-link" href="faqs.html">FAQ</a></li>
                         </ul>
-
-                        <button type="button" class="btn btn-custom ms-lg-3 mt-3 mt-lg-0" data-bs-toggle="modal" data-bs-target="#loginModal">
-                             Login / Sign Up 
-                        </button>
+                        <div id="auth-container">
+                            <!-- Login button -->
+                            <button id="loginBtn" type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Login / Sign Up
+                            </button>
+                            <!-- Logout button -->
+                            <div id="user-greeting" class="d-none align-items-center gap-2">
+                                <span id="userName" class="text-white"></span>
+                                <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -60,29 +69,33 @@
 
                 <div class="mt-3 d-flex justify-content-center gap-3 flex-wrap">
                     <a href="#" onclick="history.back(); return false;" class="btn btn-outline-light">← Continue Shopping</a>
-                    <button id="checkout-btn" class="btn btn-custom">Proceed to Checkout</button>
+                    <a href="checkout.html" id="checkout-btn" class="btn btn-custom">Proceed to Checkout →</a>
                 </div>
             </div>
         </main>
 
-        <!-- Login Code -->
+        <!-- Login Modal -->
         <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content login-card"> <div class="modal-body p-4">
+                <div class="modal-content login-card">
+                    <div class="modal-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h2 class="text-warning fw-bold m-0">Login</h2>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         
-                        <form>
+                        <form id="loginForm">
                             <div class="mb-3">
                                 <label class="form-label text-light">Email</label>
-                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                                <input type="email" class="form-control" placeholder="Enter your email" required name="email">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label text-light">Password</label>
-                                <input type="password" class="form-control" placeholder="Enter your password" required>
+                                <input type="password" class="form-control" placeholder="Enter your password" required name="password">
                             </div>
+
+                            <div id="loginMessage" class="text-center mb-2"></div>
+
                             <button type="submit" class="btn btn-custom w-100 mb-2">Login</button>
                         </form>
 
@@ -95,31 +108,36 @@
             </div>
         </div>
 
+        <!-- Signup Modal -->
         <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content login-card"> <div class="modal-body p-4">
+                <div class="modal-content login-card">
+                    <div class="modal-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h2 class="text-warning fw-bold m-0">Create Account</h2>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         
-                        <form>
+                        <form id="signupForm">
                             <div class="mb-3">
                                 <label class="form-label text-light">Full Name</label>
-                                <input type="text" class="form-control" placeholder="Enter your full name" required>
+                                <input type="text" class="form-control" placeholder="Enter your full name" required name="fullName">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label text-light">Email</label>
-                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                                <input type="email" class="form-control" placeholder="Enter your email" required name="email">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label text-light">Password</label>
-                                <input type="password" class="form-control" placeholder="Create a password" required>
+                                <input type="password" class="form-control" placeholder="Create a password" required name="password">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label text-light">Confirm Password</label>
-                                <input type="password" class="form-control" placeholder="Re-enter your password" required>
+                                <input type="password" class="form-control" placeholder="Re-enter your password" required name="confirmPassword">
                             </div>
+
+                            <div id="signupMessage" class="text-center mb-2"></div>
+
                             <button type="submit" class="btn btn-custom w-100 mb-2">Sign Up</button>
                         </form>
 
@@ -168,158 +186,233 @@
             </div>
         </footer>
 
-        <!-- JS to Switch Between Login and Signup Modals -->
+        <!-- Custom JS -->
         <script>
-            const loginModalEl = document.getElementById('loginModal');
-            const signupModalEl = document.getElementById('signupModal');
-
-            loginModalEl.addEventListener('hidden.bs.modal', function (event) {
-                loginModalEl.querySelector('form').reset();
-            });
-
-            signupModalEl.addEventListener('hidden.bs.modal', function (event) {
-                signupModalEl.querySelector('form').reset();
-            });
-            
-            let openSignupModal = false;
-            let openLoginModal = false;
-
-            loginModalEl.addEventListener('hidden.bs.modal', function (event) {
-                if (openSignupModal) {
-                    const signupModal = new bootstrap.Modal(signupModalEl);
-                    signupModal.show();
-                    openSignupModal = false;
-                }
-            });
-
-            signupModalEl.addEventListener('hidden.bs.modal', function (event) {
-                if (openLoginModal) {
-                    const loginModal = new bootstrap.Modal(loginModalEl);
-                    loginModal.show();
-                    openLoginModal = false;
-                }
-            });
-
-            document.getElementById('switchToSignup').addEventListener('click', function (e) {
-                e.preventDefault();
-                openSignupModal = true;
-                bootstrap.Modal.getInstance(loginModalEl).hide();
-            });
-
-            document.getElementById('switchToLogin').addEventListener('click', function (e) {
-                e.preventDefault();
-                openLoginModal = true;
-                bootstrap.Modal.getInstance(signupModalEl).hide();
-            });
-        </script>
-        
-        <!-- JS Logic -->
-        <script>
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartTotal = document.getElementById('cart-total');
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-            function renderCart() {
-            cartItemsContainer.innerHTML = '';
-            let total = 0;
-
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p class="text-light">Your cart is empty.</p>';
-                cartTotal.textContent = '0.00';
-                return;
-            }
-
-            cart.forEach((item, index) => {
-                const subtotal = item.price * item.quantity;
-                total += subtotal;
-
-                const cartItem = document.createElement('div');
-                cartItem.classList.add('col-md-8', 'mb-3');
-                cartItem.innerHTML = `
-                <div class="card bg-dark text-light shadow-lg p-3 d-flex flex-row align-items-center justify-content-between">
-                    <!-- Left: image + text -->
-                    <div class="d-flex align-items-center text-start flex-grow-1 gap-3">
-                    <img src="${item.img}" alt="${item.name}" class="rounded" 
-                        style="width:100px; height:100px; object-fit:cover;">
-                    <div>
-                        <h5 class="mb-1 text-warning">${item.name}</h5>
-                        <p class="mb-0">₱${item.price.toLocaleString()} each</p>
-                        <small>Quantity: ${item.quantity}</small>
-                    </div>
-                    </div>
-
-                    <!-- Right: buttons -->
-                    <div class="d-flex align-items-center justify-content-end gap-2 flex-wrap ms-3">
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-outline-light btn-sm minus">-</button>
-                        <span class="mx-2 fw-bold">${item.quantity}</span>
-                        <button class="btn btn-outline-light btn-sm plus">+</button>
-                    </div>
-                    <button class="btn btn-danger btn-sm ms-2 remove-btn">Remove</button>
-                    </div>
-                </div>
-                `;
-                cartItemsContainer.appendChild(cartItem);
-
-                // Quantity handlers
-                const plus = cartItem.querySelector('.plus');
-                const minus = cartItem.querySelector('.minus');
-                const removeBtn = cartItem.querySelector('.remove-btn');
-
-                plus.addEventListener('click', () => {
-                item.quantity++;
-                updateCart();
-                });
-
-                minus.addEventListener('click', () => {
-                if (item.quantity > 1) item.quantity--;
-                else removeItem(index);
-                updateCart();
-                });
-
-                removeBtn.addEventListener('click', () => removeItem(index));
-            });
-
-            cartTotal.textContent = total.toLocaleString(undefined, { minimumFractionDigits: 2 });
-            }
-
-            function removeItem(index) {
-            const card = cartItemsContainer.children[index];
-            if (card) {
-                card.classList.add('removing');
-                setTimeout(() => {
-                cart.splice(index, 1);
-                updateCart();
-                }, 400);
-            }
-            }
-
-            function updateCart() {
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderCart();
-            }
-
-            document.getElementById('checkout-btn').addEventListener('click', () => {
-            alert('Proceeding to checkout...');
-            });
-
-            renderCart();
-        </script>
-
-        <!-- Custom JS to Disable Right-Click and Keyboard Shortcuts -->
-        <script>
-            // Disable right-click
+            // --- Disable Right-Click and Shortcuts ---
             document.addEventListener('contextmenu', event => event.preventDefault());
-
-            // Disable Ctrl+A, Ctrl+C, Ctrl+X, Ctrl+S, Ctrl+U
             document.addEventListener('keydown', event => {
                 if (event.ctrlKey && ['a', 'c', 'x', 's', 'u'].includes(event.key.toLowerCase())) {
                     event.preventDefault();
                 }
             });
+
+            // --- Wait for DOM to be loaded for all other scripts ---
+            document.addEventListener('DOMContentLoaded', () => {
+
+                // --- Modal Switch Logic ---
+                const loginModalEl = document.getElementById('loginModal');
+                const signupModalEl = document.getElementById('signupModal');
+
+                loginModalEl.addEventListener('hidden.bs.modal', function (event) {
+                    loginModalEl.querySelector('form').reset();
+                });
+
+                signupModalEl.addEventListener('hidden.bs.modal', function (event) {
+                    signupModalEl.querySelector('form').reset();
+                });
+                
+                let openSignupModal = false;
+                let openLoginModal = false;
+
+                loginModalEl.addEventListener('hidden.bs.modal', function (event) {
+                    if (openSignupModal) {
+                        const signupModal = new bootstrap.Modal(signupModalEl);
+                        signupModal.show();
+                        openSignupModal = false;
+                    }
+                });
+
+                signupModalEl.addEventListener('hidden.bs.modal', function (event) {
+                    if (openLoginModal) {
+                        const loginModal = new bootstrap.Modal(loginModalEl);
+                        loginModal.show();
+                        openLoginModal = false;
+                    }
+                });
+
+                document.getElementById('switchToSignup').addEventListener('click', function (e) {
+                    e.preventDefault();
+                    openSignupModal = true;
+                    bootstrap.Modal.getInstance(loginModalEl).hide();
+                });
+
+                document.getElementById('switchToLogin').addEventListener('click', function (e) {
+                    e.preventDefault();
+                    openLoginModal = true;
+                    bootstrap.Modal.getInstance(signupModalEl).hide();
+                });
+            
+                // --- Cart Logic (JS Logic) ---
+                const cartItemsContainer = document.getElementById('cart-items');
+                const cartTotal = document.getElementById('cart-total');
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                function renderCart() {
+                cartItemsContainer.innerHTML = '';
+                let total = 0;
+
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p class="text-light">Your cart is empty.</p>';
+                    cartTotal.textContent = '0.00';
+                    return;
+                }
+
+                cart.forEach((item, index) => {
+                    const subtotal = item.price * item.quantity;
+                    total += subtotal;
+
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('col-md-8', 'mb-3');
+                    cartItem.innerHTML = `
+                    <div class="card bg-dark text-light shadow-lg p-3 d-flex flex-row align-items-center justify-content-between">
+                        <div class="d-flex align-items-center text-start flex-grow-1 gap-3">
+                        <img src="${item.img}" alt="${item.name}" class="rounded" 
+                            style="width:100px; height:100px; object-fit:cover;">
+                        <div>
+                            <h5 class="mb-1 text-warning">${item.name}</h5>
+                            <p class="mb-0">₱${item.price.toLocaleString()} each</p>
+                            <small>Quantity: ${item.quantity}</small>
+                        </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end gap-2 flex-wrap ms-3">
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-outline-light btn-sm minus">-</button>
+                            <span class="mx-2 fw-bold">${item.quantity}</span>
+                            <button class="btn btn-outline-light btn-sm plus">+</button>
+                        </div>
+                        <button class="btn btn-danger btn-sm ms-2 remove-btn">Remove</button>
+                        </div>
+                    </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+
+                    const plus = cartItem.querySelector('.plus');
+                    const minus = cartItem.querySelector('.minus');
+                    const removeBtn = cartItem.querySelector('.remove-btn');
+
+                    plus.addEventListener('click', () => {
+                    item.quantity++;
+                    updateCart();
+                    });
+
+                    minus.addEventListener('click', () => {
+                    if (item.quantity > 1) item.quantity--;
+                    else removeItem(index);
+                    updateCart();
+                    });
+
+                    removeBtn.addEventListener('click', () => removeItem(index));
+                });
+
+                cartTotal.textContent = total.toLocaleString(undefined, { minimumFractionDigits: 2 });
+                }
+
+                function removeItem(index) {
+                const card = cartItemsContainer.children[index];
+                if (card) {
+                    card.classList.add('removing');
+                    setTimeout(() => {
+                    cart.splice(index, 1);
+                    updateCart();
+                    }, 400);
+                }
+                }
+
+                function updateCart() {
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+                }
+
+                renderCart(); // Initial render
+
+                // --- Authentication and Session Handling ---
+                const loginForm = document.getElementById('loginForm');
+                const signupForm = document.getElementById('signupForm');
+                const loginMessage = document.getElementById('loginMessage');
+                const signupMessage = document.getElementById('signupMessage');
+
+                const loginBtn = document.getElementById('loginBtn');
+                const userGreeting = document.getElementById('user-greeting');
+                const userNameEl = document.getElementById('userName');
+                const logoutBtn = document.getElementById('logoutBtn');
+                
+                const showMessage = (element, message, isSuccess) => {
+                    if (element) {
+                        element.textContent = message;
+                        element.className = isSuccess ? 'text-center mb-2 text-success' : 'text-center mb-2 text-danger';
+                    }
+                };
+
+                const updateUI = (isLoggedIn, userName = '') => {
+                    if (isLoggedIn) {
+                        loginBtn.classList.add('d-none');
+                        userGreeting.classList.remove('d-none');
+                        userGreeting.classList.add('d-flex');
+                        userNameEl.textContent = `Hi, ${userName}`;
+                    } else {
+                        loginBtn.classList.remove('d-none');
+                        userGreeting.classList.add('d-none');
+                        userGreeting.classList.remove('d-flex');
+                        userNameEl.textContent = '';
+                    }
+                };
+                
+                if (loginForm) {
+                    loginForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        fetch('php/login.php', { method: 'POST', body: new FormData(loginForm) })
+                            .then(res => res.json())
+                            .then(data => {
+                                showMessage(loginMessage, data.message, data.success);
+                                if (data.success) {
+                                    setTimeout(() => {
+                                        bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+                                        updateUI(true, data.userName);
+                                    }, 1000);
+                                }
+                            });
+                    });
+                }
+
+                if (signupForm) {
+                    signupForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        fetch('php/register.php', { method: 'POST', body: new FormData(signupForm) })
+                            .then(res => res.json())
+                            .then(data => {
+                                showMessage(signupMessage, data.message, data.success);
+                                if (data.success) {
+                                    signupForm.reset();
+                                }
+                            });
+                    });
+                }
+                
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', () => {
+                        fetch('php/logout.php')
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    updateUI(false);
+                                }
+                            });
+                    });
+                }
+
+                fetch('php/check_session.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.loggedin) {
+                            updateUI(true, data.userName);
+                        } else {
+                            updateUI(false);
+                        }
+                    });
+            });
         </script>
 
-        <!-- Bootstrap -->
+        <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
         <!-- Ionicons -->

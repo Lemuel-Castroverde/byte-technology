@@ -13,7 +13,7 @@
     </head>
     <body>
 
-        <!-- Header & NavBar ===== -->
+        <!-- Header & NavBar -->
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark" style="background: transparent;">
                 <div class="container">
@@ -35,9 +35,17 @@
                             <li class="nav-item"><a class="nav-link" href="faqs.html">FAQ</a></li>
                         </ul>
 
-                        <button type="button" class="btn btn-custom ms-lg-3 mt-3 mt-lg-0" data-bs-toggle="modal" data-bs-target="#loginModal">
-                             Login / Sign Up 
-                        </button>
+                        <div id="auth-container">
+                            <!-- Login button (visible by default) -->
+                            <button id="loginBtn" type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Login / Sign Up
+                            </button>
+                            <!-- User Greeting & Logout button (hidden by default) -->
+                            <div id="user-greeting" class="d-none align-items-center gap-2">
+                                <span id="userName" class="text-white"></span>
+                                <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -78,72 +86,63 @@
             </section>
         </main>
 
-        <!-- Login Code -->
-        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <!-- Login Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content login-card"> <div class="modal-body p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="text-warning fw-bold m-0">Login</h2>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        
-                        <form>
-                            <div class="mb-3">
-                                <label class="form-label text-light">Email</label>
-                                <input type="email" class="form-control" placeholder="Enter your email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-light">Password</label>
-                                <input type="password" class="form-control" placeholder="Enter your password" required>
-                            </div>
-                            <button type="submit" class="btn btn-custom w-100 mb-2">Login</button>
-                        </form>
-
-                        <p class="text-center mt-3">
-                            Don’t have an account?
-                            <a href="#" id="switchToSignup" class="text-warning text-decoration-none fw-bold">Create Account</a>
-                        </p>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-warning fw-bold m-0">Login</h2>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                </div>
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label class="form-label text-light">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <div id="loginMessage" class="text-center mb-2"></div>
+                        <button type="submit" class="btn btn-custom w-100 mb-2">Login</button>
+                    </form>
+                    <p class="text-center mt-3"> Don’t have an account? <a href="#" id="switchToSignup" class="text-warning fw-bold">Create Account</a></p>
+                </div></div>
             </div>
         </div>
 
-        <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <!-- Signup Modal -->
+        <div class="modal fade" id="signupModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content login-card"> <div class="modal-body p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="text-warning fw-bold m-0">Create Account</h2>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        
-                        <form>
-                            <div class="mb-3">
-                                <label class="form-label text-light">Full Name</label>
-                                <input type="text" class="form-control" placeholder="Enter your full name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-light">Email</label>
-                                <input type="email" class="form-control" placeholder="Enter your email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-light">Password</label>
-                                <input type="password" class="form-control" placeholder="Create a password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-light">Confirm Password</label>
-                                <input type="password" class="form-control" placeholder="Re-enter your password" required>
-                            </div>
-                            <button type="submit" class="btn btn-custom w-100 mb-2">Sign Up</button>
-                        </form>
-
-                        <p class="text-center mt-3">
-                            Already have an account?
-                            <a href="#" id="switchToLogin" class="text-warning text-decoration-none fw-bold">Back to Login</a>
-                        </p>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-warning fw-bold m-0">Create Account</h2>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                </div>
+                    <form id="signupForm">
+                        <div class="mb-3">
+                            <label class="form-label text-light">Full Name</label>
+                            <input type="text" name="fullName" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">Confirm Password</label>
+                            <input type="password" name="confirmPassword" class="form-control" required>
+                        </div>
+                        <div id="signupMessage" class="text-center mb-2"></div>
+                        <button type="submit" class="btn btn-custom w-100 mb-2">Sign Up</button>
+                    </form>
+                    <p class="text-center mt-3"> Already have an account? <a href="#" id="switchToLogin" class="text-warning fw-bold">Back to Login</a></p>
+                </div></div>
             </div>
-        </div>        
+        </div>
 
         <!-- Footer-->
         <footer>
@@ -181,61 +180,161 @@
             </div>
         </footer>
 
-        <!-- JS to Switch Between Login and Signup Modals -->
+        <!-- Custom JS -->
         <script>
-            const loginModalEl = document.getElementById('loginModal');
-            const signupModalEl = document.getElementById('signupModal');
-
-            loginModalEl.addEventListener('hidden.bs.modal', function (event) {
-                loginModalEl.querySelector('form').reset();
-            });
-
-            signupModalEl.addEventListener('hidden.bs.modal', function (event) {
-                signupModalEl.querySelector('form').reset();
-            });
-            
-            let openSignupModal = false;
-            let openLoginModal = false;
-
-            loginModalEl.addEventListener('hidden.bs.modal', function (event) {
-                if (openSignupModal) {
-                    const signupModal = new bootstrap.Modal(signupModalEl);
-                    signupModal.show();
-                    openSignupModal = false;
-                }
-            });
-
-            signupModalEl.addEventListener('hidden.bs.modal', function (event) {
-                if (openLoginModal) {
-                    const loginModal = new bootstrap.Modal(loginModalEl);
-                    loginModal.show();
-                    openLoginModal = false;
-                }
-            });
-
-            document.getElementById('switchToSignup').addEventListener('click', function (e) {
-                e.preventDefault();
-                openSignupModal = true;
-                bootstrap.Modal.getInstance(loginModalEl).hide();
-            });
-
-            document.getElementById('switchToLogin').addEventListener('click', function (e) {
-                e.preventDefault();
-                openLoginModal = true;
-                bootstrap.Modal.getInstance(signupModalEl).hide();
-            });
-        </script>
-
-        <!-- Custom JS to Disable Right-Click and Keyboard Shortcuts -->
-        <script>
-            // Disable right-click
+            // --- Disable Right-Click and Shortcuts ---
+            // These are global listeners, safe to add immediately.
             document.addEventListener('contextmenu', event => event.preventDefault());
-
-            // Disable Ctrl+A, Ctrl+C, Ctrl+X, Ctrl+S, Ctrl+U
             document.addEventListener('keydown', event => {
                 if (event.ctrlKey && ['a', 'c', 'x', 's', 'u'].includes(event.key.toLowerCase())) {
                     event.preventDefault();
                 }
+            });
+
+            // --- Wait for DOM to be loaded for all other scripts ---
+            document.addEventListener('DOMContentLoaded', () => {
+            
+                // --- Modal Switch Logic ---
+                const loginModalEl = document.getElementById('loginModal');
+                const signupModalEl = document.getElementById('signupModal');
+
+                if (loginModalEl) {
+                    loginModalEl.addEventListener('hidden.bs.modal', function (event) {
+                        loginModalEl.querySelector('form').reset();
+                    });
+                }
+
+                if (signupModalEl) {
+                    signupModalEl.addEventListener('hidden.bs.modal', function (event) {
+                        signupModalEl.querySelector('form').reset();
+                    });
+                }
+                
+                let openSignupModal = false;
+                let openLoginModal = false;
+
+                if (loginModalEl) {
+                    loginModalEl.addEventListener('hidden.bs.modal', function (event) {
+                        if (openSignupModal) {
+                            const signupModal = new bootstrap.Modal(signupModalEl);
+                            signupModal.show();
+                            openSignupModal = false;
+                        }
+                    });
+                }
+
+                if (signupModalEl) {
+                    signupModalEl.addEventListener('hidden.bs.modal', function (event) {
+                        if (openLoginModal) {
+                            const loginModal = new bootstrap.Modal(loginModalEl);
+                            loginModal.show();
+                            openLoginModal = false;
+                        }
+                    });
+                }
+
+                const switchToSignup = document.getElementById('switchToSignup');
+                if (switchToSignup) {
+                    switchToSignup.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        openSignupModal = true;
+                        bootstrap.Modal.getInstance(loginModalEl).hide();
+                    });
+                }
+
+                const switchToLogin = document.getElementById('switchToLogin');
+                if (switchToLogin) {
+                    switchToLogin.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        openLoginModal = true;
+                        bootstrap.Modal.getInstance(signupModalEl).hide();
+                    });
+                }
+
+                // --- Authentication and Session Handling ---
+                const loginForm = document.getElementById('loginForm');
+                const signupForm = document.getElementById('signupForm');
+                const loginMessage = document.getElementById('loginMessage');
+                const signupMessage = document.getElementById('signupMessage');
+
+                const loginBtn = document.getElementById('loginBtn');
+                const userGreeting = document.getElementById('user-greeting');
+                const userNameEl = document.getElementById('userName');
+                const logoutBtn = document.getElementById('logoutBtn');
+                
+                const showMessage = (element, message, isSuccess) => {
+                    if (element) {
+                        element.textContent = message;
+                        element.className = isSuccess ? 'text-center mb-2 text-success' : 'text-center mb-2 text-danger';
+                    }
+                };
+
+                const updateUI = (isLoggedIn, userName = '') => {
+                    if (isLoggedIn) {
+                        loginBtn.classList.add('d-none');
+                        userGreeting.classList.remove('d-none');
+                        userGreeting.classList.add('d-flex');
+                        userNameEl.textContent = `Hi, ${userName}`;
+                    } else {
+                        loginBtn.classList.remove('d-none');
+                        userGreeting.classList.add('d-none');
+                        userGreeting.classList.remove('d-flex');
+                        userNameEl.textContent = '';
+                    }
+                };
+                
+                if (loginForm) {
+                    loginForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        fetch('php/login.php', { method: 'POST', body: new FormData(loginForm) })
+                            .then(res => res.json())
+                            .then(data => {
+                                showMessage(loginMessage, data.message, data.success);
+                                if (data.success) {
+                                    setTimeout(() => {
+                                        bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+                                        updateUI(true, data.userName);
+                                    }, 1000);
+                                }
+                            });
+                    });
+                }
+
+                if (signupForm) {
+                    signupForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        fetch('php/register.php', { method: 'POST', body: new FormData(signupForm) })
+                            .then(res => res.json())
+                            .then(data => {
+                                showMessage(signupMessage, data.message, data.success);
+                                if (data.success) {
+                                    signupForm.reset();
+                                }
+                            });
+                    });
+                }
+                
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', () => {
+                        fetch('php/logout.php')
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    updateUI(false);
+                                }
+                            });
+                    });
+                }
+
+                fetch('php/check_session.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.loggedin) {
+                            updateUI(true, data.userName);
+                        } else {
+                            updateUI(false);
+                        }
+                    });
             });
         </script>
         
