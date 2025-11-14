@@ -1,14 +1,8 @@
 <?php
 // --- USER REGISTRATION SCRIPT ---
-// Handles the user signup process.
-
-// Include the database connection file
 require 'db_connect.php';
-
-// Set the response header to return JSON
 header('Content-Type: application/json');
 
-// Get the POST data from the form
 $fullName = $_POST['fullName'] ?? '';
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
@@ -20,11 +14,16 @@ if (empty($fullName) || empty($email) || empty($password)) {
     exit;
 }
 
+// **CRITICAL FIX: EMAIL VALIDATION**
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode(['success' => false, 'message' => 'Invalid email format.']);
+    exit;
+}
+
 if ($password !== $confirmPassword) {
     echo json_encode(['success' => false, 'message' => 'Passwords do not match.']);
     exit;
 }
-
 if (strlen($password) < 6) {
     echo json_encode(['success' => false, 'message' => 'Password must be at least 6 characters long.']);
     exit;
@@ -44,21 +43,28 @@ if ($stmt->num_rows > 0) {
 }
 $stmt->close();
 
+// --- CHECK IF THIS IS THE FIRST USER ---
+$userCountResult = $conn->query("SELECT COUNT(*) as count FROM users");
+$userCount = $userCountResult->fetch_assoc()['count'];
+$position = ($userCount == 0) ? 'admin' : 'user';
+
 // --- HASH THE PASSWORD ---
-// Use PHP's built-in function for secure password hashing
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // --- INSERT NEW USER INTO THE DATABASE ---
-$stmt = $conn->prepare("INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $fullName, $email, $hashedPassword);
+$stmt = $conn->prepare("INSERT INTO users (full_name, email, password, position) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("ssss", $fullName, $email, $hashedPassword, $position);
 
 if ($stmt->execute()) {
-    echo json_encode(['success' => true, 'message' => 'Account created successfully! You can now log in.']);
+    $message = 'Account created successfully! You can now log in.';
+    if ($position === 'admin') {
+        $message .= ' (You have been registered as the first Admin).';
+    }
+    echo json_encode(['success' => true, 'message' => $message]);
 } else {
     echo json_encode(['success' => false, 'message' => 'An error occurred. Please try again.']);
 }
 
-// Close the statement and connection
 $stmt->close();
 $conn->close();
 ?>

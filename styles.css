@@ -125,7 +125,7 @@ footer .social-icons {
 }
 
 footer ion-icon {
-    color: white;
+    color: #ff7200; 
     font-size: 24px;
     margin: 5px;
     transition: 0.3s;
@@ -133,7 +133,7 @@ footer ion-icon {
 }
 
 footer ion-icon:hover {
-    color: #ff7200;
+    color: white; 
     transform: scale(1.1);
 }
 
@@ -407,6 +407,12 @@ footer hr {
     box-shadow: none;
 }
 
+.removing {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.4s ease;
+}
+
 /* ===== Details Page ===== */
 #product-img {
     transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -528,3 +534,11 @@ footer hr {
     font-weight: bold;
 }
 
+/* ===== Admin Page ===== */
+.admin-table-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 60vh; 
+    overflow-y: auto; 
+}

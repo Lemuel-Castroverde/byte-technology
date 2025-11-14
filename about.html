@@ -34,12 +34,15 @@
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                             <li class="nav-item"><a class="nav-link" href="faqs.html">FAQ</a></li>
                         </ul>
+
                         <div id="auth-container">
                             <button id="loginBtn" type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#loginModal">
                                 Login / Sign Up
                             </button>
                             <div id="user-greeting" class="d-none align-items-center gap-2">
                                 <span id="userName" class="text-white"></span>
+
+                                <a id="admin-link" href="admin.php" class="btn btn-danger d-none">Admin Panel</a>
                                 <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
                             </div>
                         </div>
@@ -105,7 +108,7 @@
                         <h2 class="text-warning fw-bold m-0">Login</h2>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <form id="loginForm">
+                    <form id="loginForm"autocomplete="off">
                         <div class="mb-3">
                             <label class="form-label text-light">Email</label>
                             <input type="email" name="email" class="form-control" required>
@@ -130,7 +133,7 @@
                         <h2 class="text-warning fw-bold m-0">Create Account</h2>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <form id="signupForm">
+                    <form id="signupForm"autocomplete="off">
                         <div class="mb-3">
                             <label class="form-label text-light">Full Name</label>
                             <input type="text" name="fullName" class="form-control" required>
@@ -155,7 +158,7 @@
             </div>
         </div>
 
-        <!-- Footer -->
+        <!-- Footer-->
         <footer>
             <div class="container py-4 text-center">
                 <div class="row justify-content-center">
@@ -190,167 +193,15 @@
                 </div>
             </div>
         </footer>
-
-        <!-- Custom JS -->
-        <script>
-            // --- Disable Right-Click and Shortcuts ---
-            // These are global listeners, safe to add immediately.
-            document.addEventListener('contextmenu', event => event.preventDefault());
-            document.addEventListener('keydown', event => {
-                if (event.ctrlKey && ['a', 'c', 'x', 's', 'u'].includes(event.key.toLowerCase())) {
-                    event.preventDefault();
-                }
-            });
-
-            // --- Wait for DOM to be loaded for all other scripts ---
-            document.addEventListener('DOMContentLoaded', () => {
-            
-                // --- Modal Switch Logic ---
-                const loginModalEl = document.getElementById('loginModal');
-                const signupModalEl = document.getElementById('signupModal');
-
-                if (loginModalEl) {
-                    loginModalEl.addEventListener('hidden.bs.modal', function (event) {
-                        loginModalEl.querySelector('form').reset();
-                    });
-                }
-
-                if (signupModalEl) {
-                    signupModalEl.addEventListener('hidden.bs.modal', function (event) {
-                        signupModalEl.querySelector('form').reset();
-                    });
-                }
-                
-                let openSignupModal = false;
-                let openLoginModal = false;
-
-                if (loginModalEl) {
-                    loginModalEl.addEventListener('hidden.bs.modal', function (event) {
-                        if (openSignupModal) {
-                            const signupModal = new bootstrap.Modal(signupModalEl);
-                            signupModal.show();
-                            openSignupModal = false;
-                        }
-                    });
-                }
-
-                if (signupModalEl) {
-                    signupModalEl.addEventListener('hidden.bs.modal', function (event) {
-                        if (openLoginModal) {
-                            const loginModal = new bootstrap.Modal(loginModalEl);
-                            loginModal.show();
-                            openLoginModal = false;
-                        }
-                    });
-                }
-
-                const switchToSignup = document.getElementById('switchToSignup');
-                if (switchToSignup) {
-                    switchToSignup.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        openSignupModal = true;
-                        bootstrap.Modal.getInstance(loginModalEl).hide();
-                    });
-                }
-
-                const switchToLogin = document.getElementById('switchToLogin');
-                if (switchToLogin) {
-                    switchToLogin.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        openLoginModal = true;
-                        bootstrap.Modal.getInstance(signupModalEl).hide();
-                    });
-                }
-
-                // --- Authentication and Session Handling ---
-                const loginForm = document.getElementById('loginForm');
-                const signupForm = document.getElementById('signupForm');
-                const loginMessage = document.getElementById('loginMessage');
-                const signupMessage = document.getElementById('signupMessage');
-
-                const loginBtn = document.getElementById('loginBtn');
-                const userGreeting = document.getElementById('user-greeting');
-                const userNameEl = document.getElementById('userName');
-                const logoutBtn = document.getElementById('logoutBtn');
-                
-                const showMessage = (element, message, isSuccess) => {
-                    if (element) {
-                        element.textContent = message;
-                        element.className = isSuccess ? 'text-center mb-2 text-success' : 'text-center mb-2 text-danger';
-                    }
-                };
-
-                const updateUI = (isLoggedIn, userName = '') => {
-                    if (isLoggedIn) {
-                        loginBtn.classList.add('d-none');
-                        userGreeting.classList.remove('d-none');
-                        userGreeting.classList.add('d-flex');
-                        userNameEl.textContent = `Hi, ${userName}`;
-                    } else {
-                        loginBtn.classList.remove('d-none');
-                        userGreeting.classList.add('d-none');
-                        userGreeting.classList.remove('d-flex');
-                        userNameEl.textContent = '';
-                    }
-                };
-                
-                if (loginForm) {
-                    loginForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        fetch('php/login.php', { method: 'POST', body: new FormData(loginForm) })
-                            .then(res => res.json())
-                            .then(data => {
-                                showMessage(loginMessage, data.message, data.success);
-                                if (data.success) {
-                                    setTimeout(() => {
-                                        bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
-                                        updateUI(true, data.userName);
-                                    }, 1000);
-                                }
-                            });
-                    });
-                }
-
-                if (signupForm) {
-                    signupForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        fetch('php/register.php', { method: 'POST', body: new FormData(signupForm) })
-                            .then(res => res.json())
-                            .then(data => {
-                                showMessage(signupMessage, data.message, data.success);
-                                if (data.success) {
-                                    signupForm.reset();
-                                }
-                            });
-                    });
-                }
-                
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', () => {
-                        fetch('php/logout.php')
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.success) {
-                                    updateUI(false);
-                                }
-                            });
-                    });
-                }
-
-                fetch('php/check_session.php')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.loggedin) {
-                            updateUI(true, data.userName);
-                        } else {
-                            updateUI(false);
-                        }
-                    });
-            });
-        </script>
-
+        
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Autherntication JS -->
+        <script src="scripts/auth.js"></script>
+
+        <!-- Cart JS -->
+        <script src="scripts/cart.js"></script>
         
         <!-- Ionicons -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

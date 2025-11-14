@@ -10,46 +10,49 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="styles.css">
-
-        <style>
-            /* Cart item animation */
-            .removing {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: all 0.4s ease;
-            }
-        </style>
     </head>
     <body>
 
         <!-- Header & NavBar -->
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark" style="background: transparent;">
-                <div class="container">
-                    <a class="navbar-brand fw-bold text-warning" href="index.html">
+                <div class="container d-flex align-items-center justify-content-between">
+                    <!-- Logo / Brand -->
+                    <a class="navbar-brand fw-bold text-warning me-3" href="index.html">
                         Byte Technology
                     </a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-
+                    
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                        <ul class="navbar-nav">
+                        <ul class="navbar-nav mx-auto">
                             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                             <li class="nav-item"><a class="nav-link active" href="prodserv.html">Products/Services</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                             <li class="nav-item"><a class="nav-link" href="faqs.html">FAQ</a></li>
                         </ul>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0 position-relative">
+                        <div id="cart-container">
+                            <a href="order.html" class="btn btn-outline-warning" id="cart-btn">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+                            <div id="cart-preview" class="shadow-lg">
+                                <h6 class="fw-bold text-warning mb-2">Your Cart</h6>
+                                <ul id="cart-preview-items" class="list-unstyled mb-2"></ul>
+                                <a href="order.html" class="btn btn-sm btn-warning text-dark fw-bold">View Cart</a>
+                            </div>
+                        </div>
                         <div id="auth-container">
-                            <!-- Login button -->
                             <button id="loginBtn" type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#loginModal">
                                 Login / Sign Up
                             </button>
-                            <!-- Logout button -->
                             <div id="user-greeting" class="d-none align-items-center gap-2">
                                 <span id="userName" class="text-white"></span>
+                                <a id="admin-link" href="admin.php" class="btn btn-danger d-none">Admin Panel</a>
                                 <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
                             </div>
                         </div>
@@ -62,109 +65,88 @@
         <main class="container my-5 text-center">
             <h2 class="display-5 fw-bold mb-4">Your <span>Shopping Cart</span></h2>
 
-            <div id="cart-items" class="row justify-content-center"></div>
+            <div id="cart-items" class="row justify-content-center">
+                <!-- Cart items will be loaded here -->
+            </div>
 
-            <div id="cart-summary" class="mt-4">
+            <div id="cart-summary" class="mt-4" style="display: none;">
                 <h4 class="text-warning">Total: ₱<span id="cart-total">0.00</span></h4>
-
                 <div class="mt-3 d-flex justify-content-center gap-3 flex-wrap">
-                    <a href="#" onclick="history.back(); return false;" class="btn btn-outline-light">← Continue Shopping</a>
+                    <a href="prodserv.html" class="btn btn-outline-light">← Continue Shopping</a>
                     <a href="checkout.html" id="checkout-btn" class="btn btn-custom">Proceed to Checkout →</a>
                 </div>
+            </div>
+            
+            <div id="empty-cart-message" class="mt-4" style="display: none;">
+                 <p class="lead text-light">Your cart is empty.</p>
+                 <a href="prodserv.html" class="btn btn-custom">Browse Products</a>
             </div>
         </main>
 
         <!-- Login Modal -->
-        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal fade" id="loginModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content login-card">
-                    <div class="modal-body p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="text-warning fw-bold m-0">Login</h2>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        
-                        <form id="loginForm">
-                            <div class="mb-3">
-                                <label class="form-label text-light">Email</label>
-                                <input type="email" class="form-control" placeholder="Enter your email" required name="email">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-light">Password</label>
-                                <input type="password" class="form-control" placeholder="Enter your password" required name="password">
-                            </div>
-
-                            <div id="loginMessage" class="text-center mb-2"></div>
-
-                            <button type="submit" class="btn btn-custom w-100 mb-2">Login</button>
-                        </form>
-
-                        <p class="text-center mt-3">
-                            Don’t have an account?
-                            <a href="#" id="switchToSignup" class="text-warning text-decoration-none fw-bold">Create Account</a>
-                        </p>
+                <div class="modal-content login-card"> <div class="modal-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-warning fw-bold m-0">Login</h2>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                </div>
+                    <form id="loginForm"autocomplete="off">
+                        <div class="mb-3">
+                            <label class="form-label text-light">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <div id="loginMessage" class="text-center mb-2"></div>
+                        <button type="submit" class="btn btn-custom w-100 mb-2">Login</button>
+                    </form>
+                    <p class="text-center mt-3"> Don’t have an account? <a href="#" id="switchToSignup" class="text-warning fw-bold">Create Account</a></p>
+                </div></div>
             </div>
         </div>
 
         <!-- Signup Modal -->
-        <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal fade" id="signupModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content login-card">
-                    <div class="modal-body p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="text-warning fw-bold m-0">Create Account</h2>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        
-                        <form id="signupForm">
-                            <div class="mb-3">
-                                <label class="form-label text-light">Full Name</label>
-                                <input type="text" class="form-control" placeholder="Enter your full name" required name="fullName">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-light">Email</label>
-                                <input type="email" class="form-control" placeholder="Enter your email" required name="email">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-light">Password</label>
-                                <input type="password" class="form-control" placeholder="Create a password" required name="password">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-light">Confirm Password</label>
-                                <input type="password" class="form-control" placeholder="Re-enter your password" required name="confirmPassword">
-                            </div>
-
-                            <div id="signupMessage" class="text-center mb-2"></div>
-
-                            <button type="submit" class="btn btn-custom w-100 mb-2">Sign Up</button>
-                        </form>
-
-                        <p class="text-center mt-3">
-                            Already have an account?
-                            <a href="#" id="switchToLogin" class="text-warning text-decoration-none fw-bold">Back to Login</a>
-                        </p>
+                <div class="modal-content login-card"> <div class="modal-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-warning fw-bold m-0">Create Account</h2>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                </div>
+                    <form id="signupForm"autocomplete="off">
+                        <div class="mb-3">
+                            <label class="form-label text-light">Full Name</label>
+                            <input type="text" name="fullName" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">Confirm Password</label>
+                            <input type="password" name="confirmPassword" class="form-control" required>
+                        </div>
+                        <div id="signupMessage" class="text-center mb-2"></div>
+                        <button type="submit" class="btn btn-custom w-100 mb-2">Sign Up</button>
+                    </form>
+                    <p class="text-center mt-3"> Already have an account? <a href="#" id="switchToLogin" class="text-warning fw-bold">Back to Login</a></p>
+                </div></div>
             </div>
         </div>
-
-        <!-- Footer -->
         <footer>
             <div class="container py-4 text-center">
                 <div class="row justify-content-center">
-
-                    <!-- Company Information -->
                     <div class="col-md-4 mb-3">
                         <h5 class="text-warning fw-bold">Company Information</h5>
-                        <p>
-                            Byte Technology is a tech-driven company that provides innovative IoT-based
-                            agricultural solutions to modernize and simplify farming operations.
-                        </p>
+                        <p>Byte Technology is a tech-driven company that provides innovative IoT-based agricultural solutions to modernize and simplify farming operations.</p>
                     </div>
-
-                    <!-- Contact Details -->
                     <div class="col-md-4 mb-3">
                         <h5 class="text-warning fw-bold">Contact Details</h5>
                         <p class="mb-1">📍 Manila, Philippines</p>
@@ -172,8 +154,6 @@
                         <p class="mb-1">✉ info@bytetech.com</p>
                         <p>⏰ Mon–Fri, 9:00 AM–6:00 PM</p>
                     </div>
-
-                    <!-- Social Media Links -->
                     <div class="col-md-3 mb-3">
                         <h5 class="text-warning fw-bold">Follow Us</h5>
                         <div class="social-icons d-flex justify-content-center">
@@ -186,234 +166,19 @@
             </div>
         </footer>
 
-        <!-- Custom JS -->
-        <script>
-            // --- Disable Right-Click and Shortcuts ---
-            document.addEventListener('contextmenu', event => event.preventDefault());
-            document.addEventListener('keydown', event => {
-                if (event.ctrlKey && ['a', 'c', 'x', 's', 'u'].includes(event.key.toLowerCase())) {
-                    event.preventDefault();
-                }
-            });
-
-            // --- Wait for DOM to be loaded for all other scripts ---
-            document.addEventListener('DOMContentLoaded', () => {
-
-                // --- Modal Switch Logic ---
-                const loginModalEl = document.getElementById('loginModal');
-                const signupModalEl = document.getElementById('signupModal');
-
-                loginModalEl.addEventListener('hidden.bs.modal', function (event) {
-                    loginModalEl.querySelector('form').reset();
-                });
-
-                signupModalEl.addEventListener('hidden.bs.modal', function (event) {
-                    signupModalEl.querySelector('form').reset();
-                });
-                
-                let openSignupModal = false;
-                let openLoginModal = false;
-
-                loginModalEl.addEventListener('hidden.bs.modal', function (event) {
-                    if (openSignupModal) {
-                        const signupModal = new bootstrap.Modal(signupModalEl);
-                        signupModal.show();
-                        openSignupModal = false;
-                    }
-                });
-
-                signupModalEl.addEventListener('hidden.bs.modal', function (event) {
-                    if (openLoginModal) {
-                        const loginModal = new bootstrap.Modal(loginModalEl);
-                        loginModal.show();
-                        openLoginModal = false;
-                    }
-                });
-
-                document.getElementById('switchToSignup').addEventListener('click', function (e) {
-                    e.preventDefault();
-                    openSignupModal = true;
-                    bootstrap.Modal.getInstance(loginModalEl).hide();
-                });
-
-                document.getElementById('switchToLogin').addEventListener('click', function (e) {
-                    e.preventDefault();
-                    openLoginModal = true;
-                    bootstrap.Modal.getInstance(signupModalEl).hide();
-                });
-            
-                // --- Cart Logic (JS Logic) ---
-                const cartItemsContainer = document.getElementById('cart-items');
-                const cartTotal = document.getElementById('cart-total');
-                let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-                function renderCart() {
-                cartItemsContainer.innerHTML = '';
-                let total = 0;
-
-                if (cart.length === 0) {
-                    cartItemsContainer.innerHTML = '<p class="text-light">Your cart is empty.</p>';
-                    cartTotal.textContent = '0.00';
-                    return;
-                }
-
-                cart.forEach((item, index) => {
-                    const subtotal = item.price * item.quantity;
-                    total += subtotal;
-
-                    const cartItem = document.createElement('div');
-                    cartItem.classList.add('col-md-8', 'mb-3');
-                    cartItem.innerHTML = `
-                    <div class="card bg-dark text-light shadow-lg p-3 d-flex flex-row align-items-center justify-content-between">
-                        <div class="d-flex align-items-center text-start flex-grow-1 gap-3">
-                        <img src="${item.img}" alt="${item.name}" class="rounded" 
-                            style="width:100px; height:100px; object-fit:cover;">
-                        <div>
-                            <h5 class="mb-1 text-warning">${item.name}</h5>
-                            <p class="mb-0">₱${item.price.toLocaleString()} each</p>
-                            <small>Quantity: ${item.quantity}</small>
-                        </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-end gap-2 flex-wrap ms-3">
-                        <div class="d-flex align-items-center">
-                            <button class="btn btn-outline-light btn-sm minus">-</button>
-                            <span class="mx-2 fw-bold">${item.quantity}</span>
-                            <button class="btn btn-outline-light btn-sm plus">+</button>
-                        </div>
-                        <button class="btn btn-danger btn-sm ms-2 remove-btn">Remove</button>
-                        </div>
-                    </div>
-                    `;
-                    cartItemsContainer.appendChild(cartItem);
-
-                    const plus = cartItem.querySelector('.plus');
-                    const minus = cartItem.querySelector('.minus');
-                    const removeBtn = cartItem.querySelector('.remove-btn');
-
-                    plus.addEventListener('click', () => {
-                    item.quantity++;
-                    updateCart();
-                    });
-
-                    minus.addEventListener('click', () => {
-                    if (item.quantity > 1) item.quantity--;
-                    else removeItem(index);
-                    updateCart();
-                    });
-
-                    removeBtn.addEventListener('click', () => removeItem(index));
-                });
-
-                cartTotal.textContent = total.toLocaleString(undefined, { minimumFractionDigits: 2 });
-                }
-
-                function removeItem(index) {
-                const card = cartItemsContainer.children[index];
-                if (card) {
-                    card.classList.add('removing');
-                    setTimeout(() => {
-                    cart.splice(index, 1);
-                    updateCart();
-                    }, 400);
-                }
-                }
-
-                function updateCart() {
-                localStorage.setItem('cart', JSON.stringify(cart));
-                renderCart();
-                }
-
-                renderCart(); // Initial render
-
-                // --- Authentication and Session Handling ---
-                const loginForm = document.getElementById('loginForm');
-                const signupForm = document.getElementById('signupForm');
-                const loginMessage = document.getElementById('loginMessage');
-                const signupMessage = document.getElementById('signupMessage');
-
-                const loginBtn = document.getElementById('loginBtn');
-                const userGreeting = document.getElementById('user-greeting');
-                const userNameEl = document.getElementById('userName');
-                const logoutBtn = document.getElementById('logoutBtn');
-                
-                const showMessage = (element, message, isSuccess) => {
-                    if (element) {
-                        element.textContent = message;
-                        element.className = isSuccess ? 'text-center mb-2 text-success' : 'text-center mb-2 text-danger';
-                    }
-                };
-
-                const updateUI = (isLoggedIn, userName = '') => {
-                    if (isLoggedIn) {
-                        loginBtn.classList.add('d-none');
-                        userGreeting.classList.remove('d-none');
-                        userGreeting.classList.add('d-flex');
-                        userNameEl.textContent = `Hi, ${userName}`;
-                    } else {
-                        loginBtn.classList.remove('d-none');
-                        userGreeting.classList.add('d-none');
-                        userGreeting.classList.remove('d-flex');
-                        userNameEl.textContent = '';
-                    }
-                };
-                
-                if (loginForm) {
-                    loginForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        fetch('php/login.php', { method: 'POST', body: new FormData(loginForm) })
-                            .then(res => res.json())
-                            .then(data => {
-                                showMessage(loginMessage, data.message, data.success);
-                                if (data.success) {
-                                    setTimeout(() => {
-                                        bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
-                                        updateUI(true, data.userName);
-                                    }, 1000);
-                                }
-                            });
-                    });
-                }
-
-                if (signupForm) {
-                    signupForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        fetch('php/register.php', { method: 'POST', body: new FormData(signupForm) })
-                            .then(res => res.json())
-                            .then(data => {
-                                showMessage(signupMessage, data.message, data.success);
-                                if (data.success) {
-                                    signupForm.reset();
-                                }
-                            });
-                    });
-                }
-                
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', () => {
-                        fetch('php/logout.php')
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.success) {
-                                    updateUI(false);
-                                }
-                            });
-                    });
-                }
-
-                fetch('php/check_session.php')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.loggedin) {
-                            updateUI(true, data.userName);
-                        } else {
-                            updateUI(false);
-                        }
-                    });
-            });
-        </script>
-
+        <div id="cart-popup">Added to Cart!</div>
+        
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Autherntication JS -->
+        <script src="scripts/auth.js"></script>
+
+        <!-- Cart JS -->
+        <script src="scripts/cart.js"></script>
+
+        <!-- Order JS -->
+        <script src="scripts/order.js"></script>
 
         <!-- Ionicons -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -421,3 +186,4 @@
 
     </body>
 </html>
+

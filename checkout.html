@@ -16,25 +16,39 @@
         <!-- Header & NavBar -->
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark" style="background: transparent;">
-                <div class="container">
-                    <a class="navbar-brand fw-bold text-warning" href="index.html">Byte Technology</a>
+                <div class="container d-flex align-items-center justify-content-between">
+                    <!-- Logo / Brand -->
+                    <a class="navbar-brand fw-bold text-warning me-3" href="index.html">Byte Technology</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                        <ul class="navbar-nav">
+                        <ul class="navbar-nav mx-auto">
                             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                             <li class="nav-item"><a class="nav-link active" href="prodserv.html">Products/Services</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                             <li class="nav-item"><a class="nav-link" href="faqs.html">FAQ</a></li>
                         </ul>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0 position-relative">
+                        <div id="cart-container">
+                            <a href="order.html" class="btn btn-outline-warning" id="cart-btn">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+                            <div id="cart-preview" class="shadow-lg">
+                                <h6 class="fw-bold text-warning mb-2">Your Cart</h6>
+                                <ul id="cart-preview-items" class="list-unstyled mb-2"></ul>
+                                <a href="order.html" class="btn btn-sm btn-warning text-dark fw-bold">View Cart</a>
+                            </div>
+                        </div>
                         <div id="auth-container">
                             <button id="loginBtn" type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#loginModal">
                                 Login / Sign Up
                             </button>
                             <div id="user-greeting" class="d-none align-items-center gap-2">
                                 <span id="userName" class="text-white"></span>
+                                <a id="admin-link" href="admin.php" class="btn btn-danger d-none">Admin Panel</a>
                                 <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
                             </div>
                         </div>
@@ -48,7 +62,10 @@
             <h2 class="display-5 fw-bold text-center mb-5">Checkout</h2>
             <div class="row g-5">
                 <div class="col-lg-7">
-                    <form id="checkoutForm" class="order-form p-4">
+                    <form id="checkoutForm" class="order-form p-4" autocomplete="off">
+    
+                        <input type="hidden" name="cartData" id="cartData"> 
+
                         <h4 class="text-warning mb-3">Shipping Information</h4>
                         <div class="row g-3">
                             <div class="col-12">
@@ -63,7 +80,7 @@
                                 <label for="address" class="form-label text-light">Shipping Address</label>
                                 <textarea class="form-control" id="address" rows="3" placeholder="1234 Main St, Brgy. Example, Manila" required></textarea>
                             </div>
-                             <div class="col-12">
+                            <div class="col-12">
                                 <label for="contactNumber" class="form-label text-light">Contact Number</label>
                                 <input type="tel" class="form-control" id="contactNumber" placeholder="09171234567" required>
                             </div>
@@ -90,7 +107,7 @@
                                 <label class="form-check-label" for="credit">
                                     <ion-icon name="card-outline"></ion-icon>
                                     <span>Credit Card</span>
-                                </label>
+                                    </label>
                             </div>
                         </div>
                         <hr class="my-4">
@@ -121,7 +138,7 @@
                         <h2 class="text-warning fw-bold m-0">Login</h2>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <form id="loginForm">
+                    <form id="loginForm"autocomplete="off">
                         <div class="mb-3">
                             <label class="form-label text-light">Email</label>
                             <input type="email" name="email" class="form-control" required>
@@ -146,7 +163,7 @@
                         <h2 class="text-warning fw-bold m-0">Create Account</h2>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <form id="signupForm">
+                    <form id="signupForm"autocomplete="off">
                         <div class="mb-3">
                             <label class="form-label text-light">Full Name</label>
                             <input type="text" name="fullName" class="form-control" required>
@@ -197,187 +214,18 @@
                 </div>
             </div>
         </footer>
-
-        <!-- Custom JS -->
-        <script>
-            // --- Disable RClick & Keyboard Shortcuts ---
-            document.addEventListener('contextmenu', event => event.preventDefault());
-            document.addEventListener('keydown', event => {
-                if (event.ctrlKey && ['a', 'c', 'x', 's', 'u'].includes(event.key.toLowerCase())) {
-                    event.preventDefault();
-                }
-            });
-
-            // --- Wait for DOM to be loaded ---
-            document.addEventListener('DOMContentLoaded', () => {
-                // --- Modal Switch ---
-                const loginModalEl = document.getElementById('loginModal');
-                const signupModalEl = document.getElementById('signupModal');
-                if (loginModalEl) loginModalEl.addEventListener('hidden.bs.modal', e => e.currentTarget.querySelector('form').reset());
-                if (signupModalEl) signupModalEl.addEventListener('hidden.bs.modal', e => e.currentTarget.querySelector('form').reset());
-                
-                let openSignupModal = false, openLoginModal = false;
-                
-                if (loginModalEl) loginModalEl.addEventListener('hidden.bs.modal', () => { if (openSignupModal) new bootstrap.Modal(signupModalEl).show(); openSignupModal = false; });
-                if (signupModalEl) signupModalEl.addEventListener('hidden.bs.modal', () => { if (openLoginModal) new bootstrap.Modal(loginModalEl).show(); openLoginModal = false; });
-                
-                const switchToSignup = document.getElementById('switchToSignup');
-                const switchToLogin = document.getElementById('switchToLogin');
-                
-                if (switchToSignup) switchToSignup.addEventListener('click', e => { e.preventDefault(); openSignupModal = true; bootstrap.Modal.getInstance(loginModalEl).hide(); });
-                if (switchToLogin) switchToLogin.addEventListener('click', e => { e.preventDefault(); openLoginModal = true; bootstrap.Modal.getInstance(signupModalEl).hide(); });
-                
-                // --- Checkout Summary & Form Logic ---
-                const summaryList = document.getElementById('summary-items-list');
-                const summaryTotal = document.getElementById('summary-total');
-                const summaryCount = document.getElementById('summary-item-count');
-                const checkoutForm = document.getElementById('checkoutForm');
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                
-                if (cart.length === 0 && window.location.pathname.endsWith('checkout.html')) {
-                    alert("Your cart is empty. Redirecting to products page.");
-                    window.location.href = 'prodserv.html';
-                    return;
-                }
-                
-                function renderSummary() {
-                    summaryList.innerHTML = '';
-                    let total = 0, itemCount = 0;
-                    cart.forEach(item => {
-                        const subtotal = item.price * item.quantity;
-                        total += subtotal;
-                        itemCount += item.quantity;
-                        const li = document.createElement('li');
-                        li.className = 'list-group-item d-flex justify-content-between lh-sm bg-dark text-light';
-                        li.innerHTML = `<div><h6 class="my-0 text-warning">${item.name}</h6><small class="text-light">Quantity: ${item.quantity}</small></div><span class="text-light">₱${subtotal.toLocaleString()}</span>`;
-                        summaryList.appendChild(li);
-                    });
-                    summaryTotal.textContent = `₱${total.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
-                    summaryCount.textContent = itemCount;
-                }
-
-                if(checkoutForm) {
-                    checkoutForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        if (checkoutForm.checkValidity()) {
-                            alert('Thank you for your order! It has been placed successfully.');
-                            localStorage.removeItem('cart'); // Clear cart on successful order
-                            window.location.href = 'index.html';
-                        } else {
-                            checkoutForm.reportValidity();
-                        }
-                    });
-                    renderSummary(); // Initial render of cart summary
-                }
-
-                // --- FIXED: Auth & Session (PHP Version) ---
-                const loginForm = document.getElementById('loginForm');
-                const signupForm = document.getElementById('signupForm');
-                const loginMessage = document.getElementById('loginMessage');
-                const signupMessage = document.getElementById('signupMessage');
-                const loginBtn = document.getElementById('loginBtn');
-                const userGreeting = document.getElementById('user-greeting');
-                const userNameEl = document.getElementById('userName');
-                const logoutBtn = document.getElementById('logoutBtn');
-                
-                const showMessage = (element, message, isSuccess) => {
-                    if (element) {
-                        element.textContent = message;
-                        element.className = isSuccess ? 'text-center mb-2 text-success' : 'text-center mb-2 text-danger';
-                    }
-                };
-
-                const updateUI = (isLoggedIn, userName = '') => {
-                    if (isLoggedIn) {
-                        loginBtn.classList.add('d-none');
-                        userGreeting.classList.remove('d-none');
-                        userGreeting.classList.add('d-flex');
-                        userNameEl.textContent = `Hi, ${userName}`;
-                    } else {
-                        loginBtn.classList.remove('d-none');
-                        userGreeting.classList.add('d-none');
-                        userGreeting.classList.remove('d-flex');
-                        userNameEl.textContent = '';
-                    }
-                };
-                
-                if (loginForm) {
-                    loginForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        fetch('php/login.php', { method: 'POST', body: new FormData(loginForm) })
-                            .then(res => res.json())
-                            .then(data => {
-                                showMessage(loginMessage, data.message, data.success);
-                                if (data.success) {
-                                    setTimeout(() => {
-                                        // Reload to apply session changes and pre-fill form
-                                        location.reload();
-                                    }, 1000);
-                                }
-                            });
-                    });
-                }
-
-                if (signupForm) {
-                    signupForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        fetch('php/register.php', { method: 'POST', body: new FormData(signupForm) })
-                            .then(res => res.json())
-                            .then(data => {
-                                showMessage(signupMessage, data.message, data.success);
-                                if (data.success) {
-                                    signupForm.reset();
-                                    // Optional: switch to login modal after successful signup
-                                    setTimeout(() => {
-                                        openLoginModal = true;
-                                        bootstrap.Modal.getInstance(signupModalEl).hide();
-                                    }, 1500);
-                                }
-                            });
-                    });
-                }
-                
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', () => {
-                        fetch('php/logout.php')
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.success) {
-                                    // Reload to clear session and form fields
-                                    location.reload();
-                                }
-                            });
-                    });
-                }
-                
-                // Check session on page load
-                fetch('php/check_session.php')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.loggedin) {
-                            updateUI(true, data.userName);
-                            
-                            // --- Pre-fill checkout form if logged in ---
-                            const fullNameInput = document.getElementById('fullName');
-                            const emailInput = document.getElementById('email');
-                            
-                            if (fullNameInput && data.userName) {
-                                fullNameInput.value = data.userName;
-                            }
-                            if (emailInput && data.userEmail) {
-                                emailInput.value = data.userEmail;
-                            }
-                            // --- End pre-fill ---
-
-                        } else {
-                            updateUI(false);
-                        }
-                    });
-            });
-        </script>
-
+        
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Autherntication JS -->
+        <script src="scripts/auth.js"></script>
+
+        <!-- Cart JS -->
+        <script src="scripts/cart.js"></script>
+
+        <!-- Checkout JS -->
+        <script src="scripts/checkout.js"></script>
 
         <!-- Ionicons -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

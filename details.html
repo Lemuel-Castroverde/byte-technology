@@ -35,28 +35,24 @@
                             <li class="nav-item"><a class="nav-link" href="faqs.html">FAQ</a></li>
                         </ul>
                     </div>
-
                     <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0 position-relative">
                         <div id="cart-container">
                             <a href="order.html" class="btn btn-outline-warning" id="cart-btn">
                                 🛒 Cart (<span id="cart-count">0</span>)
                             </a>
-
                             <div id="cart-preview" class="shadow-lg">
                                 <h6 class="fw-bold text-warning mb-2">Your Cart</h6>
                                 <ul id="cart-preview-items" class="list-unstyled mb-2"></ul>
                                 <a href="order.html" class="btn btn-sm btn-warning text-dark fw-bold">View Cart</a>
                             </div>
                         </div>
-
                         <div id="auth-container">
-                            <!-- Login button -->
                             <button id="loginBtn" type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#loginModal">
                                 Login / Sign Up
                             </button>
-                            <!-- Logout button -->
                             <div id="user-greeting" class="d-none align-items-center gap-2">
                                 <span id="userName" class="text-white"></span>
+                                <a id="admin-link" href="admin.php" class="btn btn-danger d-none">Admin Panel</a>
                                 <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
                             </div>
                         </div>
@@ -66,29 +62,9 @@
         </header>
 
         <!-- Main Contents -->
-        <main class="container mt-5 mb-5 text-center text-lg-start">
-
-            <!-- Product Details Section -->
-            <div class="row align-items-center justify-content-center">
-                <div class="col-lg-5 text-center mb-4">
-                    <img id="product-img" src="" alt="Product Image" class="img-fluid rounded shadow-lg" style="max-height: 400px; object-fit: cover;">
-                </div>
-
-                <div class="col-lg-7">
-                    <h2 id="product-name" class="text-warning fw-bold"></h2>
-                    <p id="product-desc" class="lead mt-3"></p>
-
-                    <h4 class="text-warning mt-4">Included Components:</h4>
-                    <ul id="product-components" class="list-unstyled fs-5"></ul>
-
-                    <p id="product-price" class="fw-bold mt-3"></p>
-
-                    <div class="mt-4 d-flex flex-wrap gap-3">
-                        <button id="addToCartBtn" class="btn btn-warning text-dark fw-bold px-4">Add to Cart</button>
-                        <a href="prodserv.html" class="btn btn-outline-light fw-bold px-4">Go Back</a>
-                    </div>
-                </div>
-            </div>
+        <main id="details-container" class="container mt-5 mb-5 text-center text-lg-start">
+            <!-- Product details will be loaded here -->
+            <p class="text-light lead">Loading product details...</p>
         </main>
 
         <!-- Login Modal -->
@@ -99,7 +75,7 @@
                         <h2 class="text-warning fw-bold m-0">Login</h2>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <form id="loginForm">
+                    <form id="loginForm"autocomplete="off">
                         <div class="mb-3">
                             <label class="form-label text-light">Email</label>
                             <input type="email" name="email" class="form-control" required>
@@ -124,7 +100,7 @@
                         <h2 class="text-warning fw-bold m-0">Create Account</h2>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <form id="signupForm">
+                    <form id="signupForm"autocomplete="off">
                         <div class="mb-3">
                             <label class="form-label text-light">Full Name</label>
                             <input type="text" name="fullName" class="form-control" required>
@@ -149,7 +125,7 @@
             </div>
         </div>
 
-        <!-- Footer -->
+        <!-- Footer-->
         <footer>
             <div class="container py-4 text-center">
                 <div class="row justify-content-center">
@@ -186,280 +162,23 @@
         </footer>
 
         <div id="cart-popup">Added to Cart!</div>
-
-        <!-- Custom JS -->
-        <script>
-            // --- Disable Right-Click and Shortcuts ---
-            document.addEventListener('contextmenu', event => event.preventDefault());
-            document.addEventListener('keydown', event => {
-                if (event.ctrlKey && ['a', 'c', 'x', 's', 'u'].includes(event.key.toLowerCase())) {
-                    event.preventDefault();
-                }
-            });
-
-            // --- JS Logic (Product Details) ---
-            // This is defined globally so 'product' is available for the cart script
-            const products = {
-                "1": {
-                    name: "Automated Garden Watering System",
-                    img: "prod1.png",
-                    desc: "An IoT-powered irrigation setup that automatically waters plants when the soil is dry. Perfect for gardens, greenhouses, or small farms.",
-                    price: "₱3,499.00",
-                    components: [
-                        "Arduino Uno R3",
-                        "Soil Moisture Sensors (x2)",
-                        "Relay Module",
-                        "Mini Water Pump",
-                        "12V Power Adapter",
-                        "Jumper Wires",
-                        "Clear PVC Tubing"
-                    ]
-                },
-                "2": {
-                    name: "IoT Monitoring Sensors",
-                    img: "prod2.png",
-                    desc: "Real-time monitoring of soil moisture, temperature, and humidity. Ideal for data-driven farming and automation projects.",
-                    price: "₱2,899.00",
-                    components: [
-                        "DHT22 Sensor",
-                        "Soil Moisture Sensor",
-                        "ESP8266 Wi-Fi Module",
-                        "Arduino Nano",
-                        "OLED Display Module",
-                        "Jumper Wires & Breadboard",
-                        "Power Cable"
-                    ]
-                },
-                "3": {
-                    name: "Custom IoT Kits",
-                    img: "prod3.png",
-                    desc: "Build your own IoT system for agriculture, automation, or research. Flexible and educational setup for all levels.",
-                    price: "₱4,999.00",
-                    components: [
-                        "Arduino Uno / ESP8266",
-                        "DHT11 / DHT22 Sensor",
-                        "Soil Moisture Sensor",
-                        "4-Channel Relay Module",
-                        "Breadboard & Jumper Wires",
-                        "Power Supply",
-                        "User Manual / Quick Start Guide"
-                    ]
-                }
-            };
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get("id");
-            const product = products[id] || products["1"]; // default to first product
-            
-            // --- Wait for DOM to be loaded for all other scripts ---
-            document.addEventListener('DOMContentLoaded', () => {
-            
-                // --- Modal Switch Logic ---
-                const loginModalEl = document.getElementById('loginModal');
-                const signupModalEl = document.getElementById('signupModal');
-
-                loginModalEl.addEventListener('hidden.bs.modal', function (event) {
-                    loginModalEl.querySelector('form').reset();
-                });
-
-                signupModalEl.addEventListener('hidden.bs.modal', function (event) {
-                    signupModalEl.querySelector('form').reset();
-                });
-                
-                let openSignupModal = false;
-                let openLoginModal = false;
-
-                loginModalEl.addEventListener('hidden.bs.modal', function (event) {
-                    if (openSignupModal) {
-                        const signupModal = new bootstrap.Modal(signupModalEl);
-                        signupModal.show();
-                        openSignupModal = false;
-                    }
-                });
-
-                signupModalEl.addEventListener('hidden.bs.modal', function (event) {
-                    if (openLoginModal) {
-                        const loginModal = new bootstrap.Modal(loginModalEl);
-                        loginModal.show();
-                        openLoginModal = false;
-                    }
-                });
-
-                document.getElementById('switchToSignup').addEventListener('click', function (e) {
-                    e.preventDefault();
-                    openSignupModal = true;
-                    bootstrap.Modal.getInstance(loginModalEl).hide();
-                });
-
-                document.getElementById('switchToLogin').addEventListener('click', function (e) {
-                    e.preventDefault();
-                    openLoginModal = true;
-                    bootstrap.Modal.getInstance(signupModalEl).hide();
-                });
-                
-                // --- Authentication and Session Handling ---
-                const loginForm = document.getElementById('loginForm');
-                const signupForm = document.getElementById('signupForm');
-                const loginMessage = document.getElementById('loginMessage');
-                const signupMessage = document.getElementById('signupMessage');
-
-                const loginBtn = document.getElementById('loginBtn');
-                const userGreeting = document.getElementById('user-greeting');
-                const userNameEl = document.getElementById('userName');
-                const logoutBtn = document.getElementById('logoutBtn');
-                
-                const showMessage = (element, message, isSuccess) => {
-                    if (element) {
-                        element.textContent = message;
-                        element.className = isSuccess ? 'text-center mb-2 text-success' : 'text-center mb-2 text-danger';
-                    }
-                };
-
-                const updateUI = (isLoggedIn, userName = '') => {
-                    if (isLoggedIn) {
-                        loginBtn.classList.add('d-none');
-                        userGreeting.classList.remove('d-none');
-                        userGreeting.classList.add('d-flex');
-                        userNameEl.textContent = `Hi, ${userName}`;
-                    } else {
-                        loginBtn.classList.remove('d-none');
-                        userGreeting.classList.add('d-none');
-                        userGreeting.classList.remove('d-flex');
-                        userNameEl.textContent = '';
-                    }
-                };
-                
-                if (loginForm) {
-                    loginForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        fetch('php/login.php', { method: 'POST', body: new FormData(loginForm) })
-                            .then(res => res.json())
-                            .then(data => {
-                                showMessage(loginMessage, data.message, data.success);
-                                if (data.success) {
-                                    setTimeout(() => {
-                                        bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
-                                        updateUI(true, data.userName);
-                                    }, 1000);
-                                }
-                            });
-                    });
-                }
-
-                if (signupForm) {
-                    signupForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        fetch('php/register.php', { method: 'POST', body: new FormData(signupForm) })
-                            .then(res => res.json())
-                            .then(data => {
-                                showMessage(signupMessage, data.message, data.success);
-                                if (data.success) {
-                                    signupForm.reset();
-                                }
-                            });
-                    });
-                }
-                
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', () => {
-                        fetch('php/logout.php')
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.success) {
-                                    updateUI(false);
-                                }
-                            });
-                    });
-                }
-
-                fetch('php/check_session.php')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.loggedin) {
-                            updateUI(true, data.userName);
-                        } else {
-                            updateUI(false);
-                        }
-                    });
-
-                // --- Cart Popup Notification ---
-                const cartPopup = document.getElementById('cart-popup');
-                const cartCount = document.getElementById('cart-count');
-                const previewList = document.getElementById('cart-preview-items');
-
-                function showPopup() {
-                    cartPopup.classList.add('show');
-                    setTimeout(() => cartPopup.classList.remove('show'), 1200);
-                }
-
-                function updateCartCount() {
-                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-                    cartCount.textContent = total;
-                }
-
-                function updateCartPreview() {
-                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                    previewList.innerHTML = cart.length ? "" : "<li>No items in cart</li>";
-                    cart.forEach(item => {
-                        const li = document.createElement('li');
-                        li.textContent = `${item.name} × ${item.quantity}`;
-                        previewList.appendChild(li);
-                    });
-                }
-
-                document.getElementById('addToCartBtn').addEventListener('click', () => {
-                    // The 'product' object is available from the script above
-                    const name = product.name;
-                    const price = parseFloat(product.price.replace(/[₱,]/g, ''));
-                    const img = product.img;
-
-                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                    const existingItem = cart.find(item => item.name === name);
-
-                    if (existingItem) {
-                        existingItem.quantity++;
-                    } else {
-                        cart.push({ name, price, img, quantity: 1 });
-                    }
-
-                    localStorage.setItem('cart', JSON.stringify(cart));
-
-                    showPopup();
-                    updateCartCount();
-                    updateCartPreview();
-                });
-
-                const cartContainer = document.getElementById('cart-container');
-                cartContainer.addEventListener('mouseenter', () => document.getElementById('cart-preview').classList.add('show'));
-                cartContainer.addEventListener('mouseleave', () => document.getElementById('cart-preview').classList.remove('show'));
-
-                updateCartCount();
-                updateCartPreview();
-
-                // --- Populate Product Details ---
-                // This runs *after* DOM is loaded
-                document.getElementById("product-img").src = product.img;
-                document.getElementById("product-name").textContent = product.name;
-                document.getElementById("product-desc").textContent = product.desc;
-                document.getElementById("product-price").textContent = "Price: " + product.price;
-
-                const list = document.getElementById("product-components");
-                product.components.forEach(c => {
-                    const li = document.createElement("li");
-                    li.textContent = "• " + c;
-                    list.appendChild(li);
-                });
-            });
-        </script>
         
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        
+
+        <!-- Autherntication JS -->
+        <script src="scripts/auth.js"></script>
+
+        <!-- Cart JS -->
+        <script src="scripts/cart.js"></script>
+
+        <!-- Details JS -->
+        <script src="scripts/details.js"></script>
+
         <!-- Ionicons -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-
     </body>
 </html>
+
