@@ -48,13 +48,17 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
                                 <a class="nav-link" href="admin_users.php">Manage Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">View Orders</a>
+                                <a class="nav-link" href="admin_orders.php">View Orders</a>
                             </li>
                         </ul>
                     </div>
 
                     <div id="auth-container">
-                        <div id="user-greeting" class="d-none align-items-center gap-2">
+                        <button id="loginBtn" type="button" class="btn btn-custom d-none" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            Login / Sign Up
+                        </button>
+                        
+                        <div id="user-greeting" class="d-flex align-items-center gap-2">
                             <span id="userName" class="text-white"></span>
                             <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
                         </div>
@@ -144,6 +148,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
 
         <!-- Autherntication JS -->
         <script src="scripts/auth.js"></script>
+
+        <!-- Product Management JS -->
+        <script src="scripts/admin_edit_product.js"></script>
 
         <!-- Ionicons -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

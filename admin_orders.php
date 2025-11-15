@@ -15,15 +15,19 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Manage Orders - Admin Panel</title>
 
+        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+        <!-- Custom CSS -->
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
 
+        <!-- Admin Header & NavBar -->
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark" style="background: rgba(0, 0, 0, 0.8);">
                 <div class="container">
+                    <!-- Logo / Brand -->
                     <a class="navbar-brand fw-bold text-warning" href="index.html">
                         Byte Technology (View Site)
                     </a>
@@ -50,6 +54,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
                     </div>
 
                     <div id="auth-container">
+                        <button id="loginBtn" type="button" class="btn btn-custom d-none" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            Login / Sign Up
+                        </button>
+                        
                         <div id="user-greeting" class="d-flex align-items-center gap-2">
                             <span id="userName" class="text-white"></span>
                             <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
@@ -111,12 +119,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
             </div>
         </footer>
         
+        <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+        <!-- Autherntication JS -->
         <script src="scripts/auth.js"></script>
 
+        <!--- Orders Management JS -->
         <script src="scripts/admin_orders.js"></script>
 
+        <!-- Ionicons -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 

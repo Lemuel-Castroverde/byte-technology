@@ -48,7 +48,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
                                 <a class="nav-link active" href="admin_users.php">Manage Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">View Orders</a>
+                                <a class="nav-link" href="admin_orders.php">View Orders</a>
                             </li>
                         </ul>
                     </div>
@@ -133,6 +133,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
 
         <!-- Autherntication JS -->
         <script src="scripts/auth.js"></script>
+
+        <!--- User Management JS -->
+        <script src="scripts/admin_users.js"></script>
 
         <!-- Ionicons -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

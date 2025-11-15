@@ -110,10 +110,10 @@
                         <h2 class="text-warning fw-bold m-0">Login</h2>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <form id="loginForm"autocomplete="off">
+                    <form id="loginForm" autocomplete="off">
                         <div class="mb-3">
-                            <label class="form-label text-light">Email</label>
-                            <input type="email" name="email" class="form-control" required>
+                            <label class="form-label text-light">Email or Username</label>
+                            <input type="text" name="loginIdentifier" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-light">Password</label>
@@ -135,10 +135,14 @@
                         <h2 class="text-warning fw-bold m-0">Create Account</h2>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <form id="signupForm"autocomplete="off">
+                    <form id="signupForm" autocomplete="off">
                         <div class="mb-3">
                             <label class="form-label text-light">Full Name</label>
                             <input type="text" name="fullName" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">Username</label>
+                            <input type="text" name="username" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-light">Email</label>
