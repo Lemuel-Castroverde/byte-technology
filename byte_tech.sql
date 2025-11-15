@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2025 at 06:32 PM
+-- Generation Time: Nov 15, 2025 at 03:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -103,6 +103,7 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `image_url`, `comp
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `full_name` varchar(255) NOT NULL,
+  `username` varchar(100) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `position` varchar(50) NOT NULL DEFAULT 'user',
@@ -113,9 +114,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `position`, `created_at`) VALUES
-(1, 'Lemuel Castroverde', 'lemuel.castroverde@yahoo.com', '$2y$10$k1R1v34EGvHG1Hb2875U4uSSJxAyMaoQdZhWvMD8As3YB7HzbxxSW', 'user', '2025-10-17 16:41:56'),
-(2, 'Lem Castro', 'lmlcastro18@gmail.com', '$2y$10$2/JkDC03FLWdVInEaH4nT.4T3pUQf6klQ4z95vZCMgrOgGnSAOLhS', 'admin', '2025-10-18 15:23:04');
+INSERT INTO `users` (`id`, `full_name`, `username`, `email`, `password`, `position`, `created_at`) VALUES
+(1, 'Lemuel Castroverde', 'LemUser', 'lemuel.castroverde@yahoo.com', '$2y$10$k1R1v34EGvHG1Hb2875U4uSSJxAyMaoQdZhWvMD8As3YB7HzbxxSW', 'user', '2025-10-17 16:41:56'),
+(2, 'Lem Castro', 'LemAdmin', 'lmlcastro18@gmail.com', '$2y$10$2/JkDC03FLWdVInEaH4nT.4T3pUQf6klQ4z95vZCMgrOgGnSAOLhS', 'admin', '2025-10-18 15:23:04');
 
 --
 -- Indexes for dumped tables
@@ -145,7 +146,8 @@ ALTER TABLE `products`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
