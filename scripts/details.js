@@ -13,14 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // --- DYNAMICALLY LOAD SINGLE PRODUCT DETAILS (Performance Fix) ---
-    // NOTE: We assume you will create php/public_get_product.php 
-    // which only returns data for the specific ID.
-    fetch(`php/public_get_product.php?id=${productId}`) 
+    // Fetch product details from the server
+    fetch(`php/public_get_products.php?id=${productId}`) 
         .then(res => res.json())
         .then(data => {
-            // Your HTML was set up to expect a list and filter, we adjust the data structure here.
-            // For now, we will use the current public_get_products.php logic for stability
             if (data.success) {
                 const product = data.products.find(p => p.id == productId);
                 if (product) {
@@ -34,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     function renderProductDetails(product) {
-        // This content is copied directly from your original details.html inline script:
         detailsContainer.innerHTML = `
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-5 text-center mb-4">
@@ -58,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Initialize the "Add to Cart" button for this specific product
         document.getElementById('addToCartBtn').addEventListener('click', () => {
-            // We pass the product object directly for simplicity
             addToCart(product);
         });
     }

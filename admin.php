@@ -26,8 +26,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
         <!-- Header & NavBar -->
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark" style="background: rgba(0, 0, 0, 0.8);">
-                <div class="container">
-                    <!-- Logo / Brand -->
+                <!-- 'container-fluid' allows full width, 'px-4' adds small spacing from the absolute edge -->
+                <div class="container-fluid px-4">
+                    
+                    <!-- Logo / Brand (Far Left) -->
                     <a class="navbar-brand fw-bold text-warning" href="index.html">
                         Byte Technology (View Site)
                     </a>
@@ -36,13 +38,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                        <ul class="navbar-nav">
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto gap-4">
                             <li class="nav-item">
                                 <a class="nav-link active" href="admin.php">Dashboard</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="admin_products.php">Manage Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_services.php">Manage Services</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="admin_users.php">Manage Users</a>
@@ -51,16 +56,17 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
                                 <a class="nav-link" href="admin_orders.php">View Orders</a>
                             </li>
                         </ul>
-                    </div>
 
-                    <div id="auth-container">
-                        <button id="loginBtn" type="button" class="btn btn-custom d-none" data-bs-toggle="modal" data-bs-target="#loginModal">
-                            Login / Sign Up
-                        </button>
-                        
-                        <div id="user-greeting" class="d-flex align-items-center gap-2">
-                            <span id="userName" class="text-white"></span>
-                            <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
+                        <!-- Auth Container (Far Right) -->
+                        <div id="auth-container" class="d-flex align-items-center">
+                            <button id="loginBtn" type="button" class="btn btn-custom d-none" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Login / Sign Up
+                            </button>
+                            
+                            <div id="user-greeting" class="d-flex align-items-center gap-2">
+                                <span id="userName" class="text-white"></span>
+                                <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,28 +76,69 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
         <main class="container my-5">
             <h2 class="display-5 fw-bold text-center mb-5">Admin <span>Panel</span></h2>
             
+            <!-- Dynamic Stats Row -->
+            <div class="row g-4 mb-5 text-center">
+                <div class="col-md-3">
+                    <div class="p-3 bg-dark border border-warning rounded shadow h-100 d-flex flex-column justify-content-center">
+                        <h3 class="text-warning fw-bold mb-0" id="total-sales">Loading...</h3>
+                        <p class="text-light mb-0 mt-2">Total Sales</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 bg-dark border border-secondary rounded shadow h-100 d-flex flex-column justify-content-center">
+                        <h3 class="text-white fw-bold mb-0" id="total-orders">0</h3>
+                        <p class="text-light mb-0 mt-2">Total Orders</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 bg-dark border border-secondary rounded shadow h-100 d-flex flex-column justify-content-center">
+                        <h3 class="text-white fw-bold mb-0" id="total-products">0</h3>
+                        <p class="text-light mb-0 mt-2">Active Products</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 bg-dark border border-secondary rounded shadow h-100 d-flex flex-column justify-content-center">
+                        <h3 class="text-white fw-bold mb-0" id="total-users">0</h3>
+                        <p class="text-light mb-0 mt-2">Registered Users</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Cards (2x2 Grid) -->
             <div class="row g-4">
+                <!-- 1. Products -->
                 <div class="col-md-6">
-                    <div class="about-card p-4">
+                    <div class="about-card p-4 h-100">
                         <h4 class="text-warning fw-bold">Manage Products</h4>
                         <p>Add, edit, or remove products from the store.</p>
-                        <a href="admin_products.php" class="btn btn-outline-warning">Add New Product</a>
+                        <a href="admin_products.php" class="btn btn-outline-warning mt-auto">Go to Products</a>
                     </div>
                 </div>
 
+                <!-- 2. Services -->
                 <div class="col-md-6">
-                    <div class="about-card p-4">
+                    <div class="about-card p-4 h-100">
+                        <h4 class="text-warning fw-bold">Manage Services</h4>
+                        <p>Add, edit, or remove services offered.</p>
+                        <a href="admin_services.php" class="btn btn-outline-warning mt-auto">Go to Services</a>
+                    </div>
+                </div>
+
+                <!-- 3. Users -->
+                <div class="col-md-6">
+                    <div class="about-card p-4 h-100">
                         <h4 class="text-warning fw-bold">Manage Users</h4>
                         <p>View all registered users and change their roles.</p>
-                        <a href="admin_users.php" class="btn btn-outline-warning">View Users</a>
+                        <a href="admin_users.php" class="btn btn-outline-warning mt-auto">Go to Users</a>
                     </div>
                 </div>
 
+                <!-- 4. Orders -->
                 <div class="col-md-6">
-                    <div class="about-card p-4">
+                    <div class="about-card p-4 h-100">
                         <h4 class="text-warning fw-bold">View Orders</h4>
                         <p>View submitted orders from customers.</p>
-                        <a href="admin_orders.php" class="btn btn-outline-warning">View Orders</a>
+                        <a href="admin_orders.php" class="btn btn-outline-warning mt-auto">Go to Orders</a>
                     </div>
                 </div>
             </div>
@@ -138,6 +185,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
 
         <!-- Autherntication JS -->
         <script src="scripts/auth.js"></script>
+
+        <!-- Admin Dashboard JS -->
+        <script src="scripts/admin_dashboard.js"></script>
 
         <!-- Ionicons -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

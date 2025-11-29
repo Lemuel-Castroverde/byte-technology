@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2025 at 03:32 AM
+-- Generation Time: Nov 29, 2025 at 03:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -90,9 +90,42 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `image_url`, `components`) VALUES
-(1, 'Automated Garden Watering System', 'An IoT-powered irrigation setup that automatically waters plants when the soil is dry. Perfect for gardens, greenhouses, or small farms.', 3499.00, 'uploads/1760807149_prod1.png', '\"Arduino Uno R3\",\r\n\"Soil Moisture Sensors (x2)\",\r\n\"Relay Module\",\r\n\"Mini Water Pump\",\r\n\"12V Power Adapter\",\r\n\"Jumper Wires\",\r\n\"Clear PVC Tubing\"'),
-(2, 'IoT Monitoring Sensors', 'Real-time monitoring of soil moisture, temperature, and humidity. Ideal for data-driven farming and automation projects.', 2899.00, 'uploads/1760807328_prod2.png', '\"DHT22 Sensor\",\r\n\"Soil Moisture Sensor\",\r\n\"ESP8266 Wi-Fi Module\",\r\n\"Arduino Nano\",\r\n\"OLED Display Module\",\r\n\"Jumper Wires & Breadboard\",\r\n\"Power Cable\"'),
-(3, 'Custom IoT Kits', 'Build your own IoT system for agriculture, automation, or research. Flexible and educational setup for all levels.', 4999.00, 'uploads/1760807694_prod3.png', '\"Arduino Uno / ESP8266\",\r\n\"DHT11 / DHT22 Sensor\",\r\n\"Soil Moisture Sensor\",\r\n\"4-Channel Relay Module\",\r\n\"Breadboard & Jumper Wires\",\r\n\"Power Supply\",\r\n\"User Manual / Quick Start Guide\"');
+(4, 'Smart Hydroponics Brain', 'The central nervous system for modern hydroponic farms. It automatically monitors water pH, EC levels, and temperature to dose nutrients precisely.', 8500.00, 'uploads/1764304831_Gemini_Generated_Image_b5o18qb5o18qb5o1.png', 'ESP32 Microcontroller\r\nIndustrial Grade pH Sensor Probe\r\nEC (Conductivity) Sensor\r\nPeristaltic Dosing Pumps (x2)\r\nOLED Status Display\r\nWaterproof Temperature Probe'),
+(5, 'Agri-Bot Rover Kit', 'A programmable ground drone chassis designed for autonomous crop monitoring. Capable of navigating rough farm terrain to capture soil data without compacting soil.', 12499.00, 'uploads/1764304964_Gemini_Generated_Image_vmbhv4vmbhv4vmbh.png', '4WD Aluminum Chassis\r\nHigh-Torque DC Geared Motors (x4)\r\nL298N Motor Driver Module\r\nRaspberry Pi Zero W\r\nUltrasonic Obstacle Sensors\r\nLi-Po Battery Pack'),
+(6, 'LoRaWAN Farm Gateway', 'Create a private, long-range network for your entire farm. Connects sensors up to 5km away without needing expensive cellular data or Wi-Fi in every field.', 6500.00, 'uploads/1764305038_Gemini_Generated_Image_p2e4x2p2e4x2p2e4.png', 'Dragino LoRa Gateway Module\r\nHigh-Gain Outdoor Antenna (868/915 MHz)\r\nPower over Ethernet (PoE) Adapter\r\nWeatherproof IP67 Enclosure\r\nMounting Bracket'),
+(7, 'Solar IoT Node V2', 'A \"set and forget\" sensor node for remote areas. Integrated solar charging allows it to run indefinitely, sending soil moisture data to the cloud.', 3200.00, 'uploads/1764305120_Gemini_Generated_Image_92rb9p92rb9p92rb.png', '6V Monocrystalline Solar Panel\r\n18650 Li-Ion Battery Holder\r\nTP4056 Charging Module\r\nESP8266 Wi-Fi Chip\r\nCapacitive Soil Moisture Sensor'),
+(8, 'Auto-Greenhouse Starter', 'A complete automation kit for small greenhouses. Controls fans, lights, and misting systems based on real-time temperature and humidity thresholds', 4800.00, 'uploads/1764305204_Gemini_Generated_Image_qpmke1qpmke1qpmk.png', 'Arduino Mega 2560\r\n8-Channel Relay Module\r\nDS18B20 Waterproof Temp Probe\r\n12V DC Cooling Fan\r\nServo Motors (for Vents)\r\nDHT22 Air Sensor'),
+(9, 'Precision Irrigation Valve', 'A smart motorized ball valve that fits standard PVC pipes. Uses zero power once opened, making it perfect for solar-powered irrigation systems.', 1950.00, 'uploads/1764305895_Gemini_Generated_Image_g0g4l2g0g4l2g0g4.png', 'Motorized Ball Valve (3/4 inch)\r\nRF 433MHz Receiver Module\r\nManual Override Switch\r\n12V Power Supply\r\nIP65 Waterproof Housing'),
+(10, 'AI Vision Sentry', 'Advanced camera module detecting early signs of crop diseases or pests using Machine Learning. Perfect for Thesis projects or reducing pesticide use.', 7999.00, 'uploads/1764305969_Gemini_Generated_Image_bok74ybok74ybok7.png', 'Raspberry Pi 4 (4GB RAM)\r\nPi Camera Module V2 (8MP)\r\nCoral USB Accelerator (Optional)\r\nPre-loaded Python Detection Scripts\r\nAdjustable Camera Mount'),
+(11, 'Soil NPK Analyzer', 'Industrial-grade sensor probe that measures Nitrogen, Phosphorus, and Potassium levels in soil instantly. Helps farmers apply exact fertilizer amounts.', 2100.00, 'uploads/1764306030_Gemini_Generated_Image_u4sy57u4sy57u4sy.png', 'RS485 NPK Sensor Probe\r\nMAX485 TTL to RS485 Module\r\nArduino Nano\r\n0.96\" OLED Screen\r\n9V Battery Connector'),
+(12, 'IoT Weather Station', 'Track your farm\'s exact rainfall, wind speed, and atmospheric pressure to make precise planting and harvesting decisions.', 5500.00, 'uploads/1764306119_Gemini_Generated_Image_u39c5xu39c5xu39c.png', 'Anemometer (Wind Speed Sensor)\r\nWind Vane (Direction Sensor)\r\nTipping Bucket Rain Gauge\r\nBME280 Pressure/Humidity Sensor\r\nAluminum Mounting Pole Kit'),
+(13, 'ESP32 Student Starter', 'The ultimate starter pack for Computer Engineering students learning IoT. Includes the powerful ESP32 and components for building smart prototypes.', 1250.00, 'uploads/1764306184_Gemini_Generated_Image_i2q910i2q910i2q9.png', 'ESP32-WROOM-32 Dev Board\r\n830-Point Breadboard\r\nDHT11 Temp/Humidity Sensor\r\nLDR Light Sensor\r\nJumper Wires (M-M, M-F)\r\nLEDs, Resistors & Pushbuttons');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `services`
+--
+
+CREATE TABLE `services` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `breakdown` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`id`, `name`, `description`, `price`, `image_url`, `breakdown`) VALUES
+(1, 'System Maintenance', 'Quarterly onsite checkups, sensor calibration, and firmware updates to ensure your IoT ecosystem runs at 99.9% uptime.', 1500.00, 'uploads/1764309830_Gemini_Generated_Image_xf6m4jxf6m4jxf6m.png', 'Sensor calibration and accuracy testing\r\nFirmware security patching and updates\r\nPhysical hardware cleaning and inspection\r\nConnectivity signal strength analysis\r\nBattery health check for remote nodes'),
+(2, 'Component Replacement', 'Rapid diagnosis and replacement of faulty sensors, microcontrollers, or actuators to minimize farm downtime.', 850.00, 'uploads/1764309924_Gemini_Generated_Image_wovlurwovlurwovl.png', 'On-site hardware diagnostics\r\nRemoval of defective modules\r\nInstallation of genuine replacement parts\r\nSystem reboot and reintegration\r\nPost-repair functionality stress test'),
+(3, 'Farm Layout Design', 'Custom CAD blueprints optimizing sensor placement and wiring paths for your specific farm or greenhouse structure.', 2500.00, 'uploads/1764309996_Gemini_Generated_Image_azzbsdazzbsdazzb.png', 'Digital site survey and mapping\r\nOptimal sensor placement strategy\r\nWiring and conduit path planning\r\nWi-Fi/LoRaWAN coverage heatmap\r\n3D visualization of final setup'),
+(4, 'Technical Consultation', 'One-on-one session with our Computer Engineers to architect a smart farming solution tailored to your specific crops.', 1000.00, 'uploads/1764310058_Gemini_Generated_Image_je5omfje5omfje5o.png', 'Crop-specific requirement analysis\r\nIoT architecture planning\r\nCost-benefit and ROI estimation\r\nIntegration with existing farm equipment\r\nTechnology roadmap development'),
+(5, 'Staff Training', 'Comprehensive workshop teaching your staff how to interpret IoT data dashboards and perform basic hardware troubleshooting.', 3500.00, 'uploads/1764310157_Gemini_Generated_Image_477mqo477mqo477m.png', 'Dashboard navigation walkthrough\r\nInterpreting soil and weather data\r\nSetting up automated alerts\r\nBasic hardware troubleshooting guide\r\nEmergency system override protocols');
 
 -- --------------------------------------------------------
 
@@ -142,6 +175,12 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -169,7 +208,13 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`

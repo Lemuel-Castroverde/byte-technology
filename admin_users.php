@@ -26,8 +26,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
         <!-- Header & NavBar -->
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark" style="background: rgba(0, 0, 0, 0.8);">
-                <div class="container">
-                    <!-- Logo / Brand -->
+                <!-- 'container-fluid' allows full width, 'px-4' adds small spacing from the absolute edge -->
+                <div class="container-fluid px-4">
+                    
+                    <!-- Logo / Brand (Far Left) -->
                     <a class="navbar-brand fw-bold text-warning" href="index.html">
                         Byte Technology (View Site)
                     </a>
@@ -36,13 +38,19 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                        <ul class="navbar-nav">
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        
+                        <!-- Navigation Links (Centered) -->
+                        <!-- mx-auto pushes content to the center, keeping Logo Left and Auth Right -->
+                        <ul class="navbar-nav mx-auto gap-4">
                             <li class="nav-item">
                                 <a class="nav-link" href="admin.php">Dashboard</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="admin_products.php">Manage Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_services.php">Manage Services</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="admin_users.php">Manage Users</a>
@@ -51,16 +59,17 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
                                 <a class="nav-link" href="admin_orders.php">View Orders</a>
                             </li>
                         </ul>
-                    </div>
 
-                    <div id="auth-container">
-                        <button id="loginBtn" type="button" class="btn btn-custom d-none" data-bs-toggle="modal" data-bs-target="#loginModal">
-                            Login / Sign Up
-                        </button>
-                        
-                        <div id="user-greeting" class="d-flex align-items-center gap-2">
-                            <span id="userName" class="text-white"></span>
-                            <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
+                        <!-- Auth Container (Far Right) -->
+                        <div id="auth-container" class="d-flex align-items-center">
+                            <button id="loginBtn" type="button" class="btn btn-custom d-none" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Login / Sign Up
+                            </button>
+                            
+                            <div id="user-greeting" class="d-flex align-items-center gap-2">
+                                <span id="userName" class="text-white"></span>
+                                <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
+                            </div>
                         </div>
                     </div>
                 </div>
