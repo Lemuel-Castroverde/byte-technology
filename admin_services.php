@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+// --- PREVENT CACHING ---
+// Ensure the browser always requests the page from the server to check session validity
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 // Check if the user is NOT logged in OR if their position is NOT 'admin'.
 if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
     header('Location: index.html');

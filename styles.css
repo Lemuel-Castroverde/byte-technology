@@ -542,3 +542,23 @@ footer hr {
     max-height: 60vh; 
     overflow-y: auto; 
 }
+
+/* ===== Password Toggle Style ===== */
+.input-group-text.toggle-password {
+    background: rgba(255, 255, 255, 0.9); /* Matches your input background */
+    border: none;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    color: #333;
+    transition: 0.3s;
+}
+
+.input-group-text.toggle-password:hover {
+    background: white;
+    color: #ff7200;
+}
+
+/* Fix input border radius when grouped */
+.input-group > .form-control {
+    border-radius: 8px 0 0 8px !important;
+}

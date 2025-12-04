@@ -92,7 +92,12 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-light">Password</label>
-                            <input type="password" name="password" class="form-control" required>
+                            <div class="input-group">
+                                <input type="password" name="password" class="form-control" required>
+                                <span class="input-group-text toggle-password">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </span>
+                            </div>
                         </div>
                         <div id="loginMessage" class="text-center mb-2"></div>
                         <button type="submit" class="btn btn-custom w-100 mb-2">Login</button>
@@ -125,11 +130,21 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-light">Password</label>
-                            <input type="password" name="password" class="form-control" required>
+                            <div class="input-group">
+                                <input type="password" name="password" class="form-control" required>
+                                <span class="input-group-text toggle-password">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </span>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-light">Confirm Password</label>
-                            <input type="password" name="confirmPassword" class="form-control" required>
+                            <div class="input-group">
+                                <input type="password" name="confirmPassword" class="form-control" required>
+                                <span class="input-group-text toggle-password">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </span>
+                            </div>
                         </div>
                         <div id="signupMessage" class="text-center mb-2"></div>
                         <button type="submit" class="btn btn-custom w-100 mb-2">Sign Up</button>

@@ -14,6 +14,15 @@ document.addEventListener('keydown', event => {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- CHANGE 1: Add this listener immediately inside DOMContentLoaded ---
+    // This detects if the user hit "Back" to get here.
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            // Page was loaded from cache (user hit back button), re-verify session
+            checkSession();
+        }
+    });
+
     // --- Element References ---
     const loginModalEl = document.getElementById('loginModal');
     const signupModalEl = document.getElementById('signupModal');
@@ -26,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const userNameEl = document.getElementById('userName');
     const logoutBtn = document.getElementById('logoutBtn');
     const adminLink = document.getElementById('admin-link');
-    const myOrdersLink = document.getElementById('my-orders-link'); // Ensure this exists in HTML or remove if unused
-    
+    const myOrdersLink = document.getElementById('my-orders-link'); // Added from previous step
+
     // --- Utility Functions ---
     const showMessage = (element, message, isSuccess) => {
         if (element) {
@@ -44,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 userGreeting.classList.add('d-flex');
             }
             if (userNameEl) userNameEl.textContent = `Hi, ${userName}`;
+            
             if (adminLink) {
                 if (position === 'admin') {
                     adminLink.classList.remove('d-none');
@@ -58,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const fullNameInput = document.getElementById('fullName');
                 const emailInput = document.getElementById('email');
                 if (fullNameInput && userName) fullNameInput.value = userName;
+                // email logic if needed
             }
         } else {
             if (loginBtn) loginBtn.classList.remove('d-none');
@@ -175,12 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
+                            // Clear session storage on logout
+                            sessionStorage.clear(); 
                             updateUI(false);
-                            // If on a protected page, go home
                             if (window.location.pathname.includes('admin') || window.location.pathname.endsWith('checkout.html')) {
                                 window.location.href = 'index.html';
                             } else {
-                                // Reload to clear user data from view
                                 location.reload();
                             }
                         }
@@ -189,10 +200,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- PASSWORD SHOW/HIDE LOGIC ---
+    // We use event delegation so it works for all modals
+    document.body.addEventListener('click', (e) => {
+        // Check if the clicked element (or its parent) is the toggle button
+        const toggleBtn = e.target.closest('.toggle-password');
+        
+        if (toggleBtn) {
+            // Find the input field immediately before the button
+            const input = toggleBtn.previousElementSibling;
+            const icon = toggleBtn.querySelector('ion-icon');
+
+            if (input && input.type === 'password') {
+                input.type = 'text';
+                if(icon) icon.setAttribute('name', 'eye-off-outline'); // Change icon to "eye-off"
+            } else if (input) {
+                input.type = 'password';
+                if(icon) icon.setAttribute('name', 'eye-outline'); // Change icon back to "eye"
+            }
+        }
+    });
+
     // --- SESSION CHECK LOGIC ---
 
     // 1. Define the check function
-    // We add a timestamp query param (?t=...) to bypass browser caching of the fetch request
+    // We add a timestamp query param (?t=...) to bypass browser caching of the fetch request itself
     function checkSession() {
         fetch('php/check_session.php?t=' + new Date().getTime())
             .then(response => response.json())
@@ -213,13 +245,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Call it immediately on page load
     checkSession();
-
-    // 3. FORCE CHECK ON BACK BUTTON
-    // The 'pageshow' event fires when the page is being shown, even from the bfcache (back-forward cache).
-    window.addEventListener('pageshow', (event) => {
-        if (event.persisted) {
-            console.log("Page restored from cache. Re-checking session...");
-            checkSession();
-        }
-    });
 });
