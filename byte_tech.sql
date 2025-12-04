@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2025 at 03:31 AM
+-- Generation Time: Dec 04, 2025 at 07:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,7 +45,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `total_amount`, `full_name`, `email`, `shipping_address`, `contact_number`, `payment_method`, `order_date`, `status`) VALUES
-(1, 1, 8498.00, 'A', 'a@gmail.com', '1234 St.', '09876543210', 'cod', '2025-11-15 01:08:31', 'Pending');
+(1, 1, 8498.00, 'A', 'a@gmail.com', '1234 St.', '09876543210', 'cod', '2025-11-15 01:08:31', 'Pending'),
+(2, 2, 4800.00, 'Lem Castro', 'lmlcastro18@gmail.com', 'asd', '1023', 'cod', '2025-12-04 14:13:07', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,8 @@ CREATE TABLE `order_items` (
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_name`, `quantity`, `price`) VALUES
 (1, 1, 3, 'Custom IoT Kits', 1, 4999.00),
-(2, 1, 1, 'Automated Garden Watering System', 1, 3499.00);
+(2, 1, 1, 'Automated Garden Watering System', 1, 3499.00),
+(3, 2, 8, 'Auto-Greenhouse Starter', 1, 4800.00);
 
 -- --------------------------------------------------------
 
@@ -140,16 +142,17 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `position` varchar(50) NOT NULL DEFAULT 'user',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` varchar(20) DEFAULT 'active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `full_name`, `username`, `email`, `password`, `position`, `created_at`) VALUES
-(1, 'Lemuel Castroverde', 'LemUser', 'lemuel.castroverde@yahoo.com', '$2y$10$k1R1v34EGvHG1Hb2875U4uSSJxAyMaoQdZhWvMD8As3YB7HzbxxSW', 'user', '2025-10-17 16:41:56'),
-(2, 'Lem Castro', 'LemAdmin', 'lmlcastro18@gmail.com', '$2y$10$2/JkDC03FLWdVInEaH4nT.4T3pUQf6klQ4z95vZCMgrOgGnSAOLhS', 'admin', '2025-10-18 15:23:04');
+INSERT INTO `users` (`id`, `full_name`, `username`, `email`, `password`, `position`, `created_at`, `status`) VALUES
+(1, 'Lemuel Castroverde', 'LemUser', 'lemuel.castroverde@yahoo.com', '$2y$10$k1R1v34EGvHG1Hb2875U4uSSJxAyMaoQdZhWvMD8As3YB7HzbxxSW', 'user', '2025-10-17 16:41:56', 'active'),
+(2, 'Lem Castro', 'LemAdmin', 'lmlcastro18@gmail.com', '$2y$10$2/JkDC03FLWdVInEaH4nT.4T3pUQf6klQ4z95vZCMgrOgGnSAOLhS', 'admin', '2025-10-18 15:23:04', 'active');
 
 --
 -- Indexes for dumped tables
@@ -196,13 +199,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
