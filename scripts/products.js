@@ -1,10 +1,11 @@
 /**
  * scripts/products.js
  * Handles fetching Products AND Services.
+ * UPDATED: Uses server-side cart (window.addToCartDB) instead of localStorage.
  */
 document.addEventListener('DOMContentLoaded', () => {
     const productGrid = document.getElementById('product-grid');
-    const servicesGrid = document.getElementById('services-grid'); // <--- New Reference
+    const servicesGrid = document.getElementById('services-grid'); 
     const searchInput = document.getElementById('search-input');
     
     let allProducts = []; 
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(err => console.error(err));
 
-    // 2. Fetch SERVICES (New Logic)
+    // 2. Fetch SERVICES
     if (servicesGrid) {
         fetch('php/get_services.php')
             .then(res => res.json())
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error(err));
     }
 
-    // --- Search Logic (For Products) ---
+    // --- Search Logic ---
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase().trim();
@@ -77,7 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             productGrid.appendChild(productCard);
         });
-        initializeCartButtons(products);
+        
+        // Call the updated button initializer
+        initializeCartButtons();
     }
 
     function renderServices(services) {
@@ -103,28 +106,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function initializeCartButtons(currentProductList) {
+    // --- REPLACED FUNCTION HERE ---
+    function initializeCartButtons() {
         document.querySelectorAll('.add-to-cart').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const productId = e.target.dataset.id;
-                const product = currentProductList.find(p => p.id == productId);
-                if (!product) return;
                 
-                let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                const existing = cart.find(item => item.id == productId);
-                if (existing) existing.quantity++;
-                else cart.push({ 
-                    id: product.id, 
-                    name: product.name, 
-                    price: parseFloat(product.price), 
-                    img: product.image_url, 
-                    quantity: 1 
-                });
-                
-                localStorage.setItem('cart', JSON.stringify(cart));
-                if (window.showPopup) window.showPopup();
-                if (window.updateCartCount) window.updateCartCount();
-                if (window.updateCartPreview) window.updateCartPreview();
+                // NEW LOGIC: Use the server-side function defined in cart.js
+                if (window.addToCartDB) {
+                    window.addToCartDB(productId, 1);
+                } else {
+                    console.error("addToCartDB function missing! Make sure cart.js is loaded.");
+                }
             });
         });
     }

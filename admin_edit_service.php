@@ -1,8 +1,17 @@
 <?php
 session_start();
+
+// --- PREVENT CACHING ---
+// Ensure the browser always requests the page from the server to check session validity
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+// Check if the user is NOT logged in OR if their position is NOT 'admin'.
 if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
+    // Redirect them to the main page
     header('Location: index.html');
-    exit;
+    exit; // Stop executing the rest of the PHP and HTML
 }
 ?>
 
@@ -11,6 +20,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="0">
         <title>Edit Service - Admin Panel</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="styles.css">
@@ -27,12 +39,26 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
 
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto gap-4">
-                            <li class="nav-item"><a class="nav-link" href="admin.php">Dashboard</a></li>
-                            <li class="nav-item"><a class="nav-link" href="admin_products.php">Manage Products</a></li>
-                            <li class="nav-item"><a class="nav-link active" href="admin_services.php">Manage Services</a></li>
-                            <li class="nav-item"><a class="nav-link" href="admin_users.php">Manage Users</a></li>
-                            <li class="nav-item"><a class="nav-link" href="admin_orders.php">View Orders</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin.php">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_products.php">Manage Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="admin_services.php">Manage Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_users.php">Manage Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_orders.php">View Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_inquiries.php">Inquiries</a>
+                            </li>
                         </ul>
+
                         <div id="auth-container" class="d-flex align-items-center">
                             <div id="user-greeting" class="d-flex align-items-center gap-2">
                                 <span id="userName" class="text-white"></span>

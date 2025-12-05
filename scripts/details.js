@@ -1,7 +1,7 @@
 /**
  * scripts/details.js
- * Handles fetching and rendering a single product's details on details.html.
- * It relies on window.showPopup(), window.updateCartCount(), etc., defined in scripts/cart.js.
+ * Handles fetching and rendering a single product's details.
+ * UPDATED: Uses server-side cart (window.addToCartDB) instead of localStorage.
  */
 document.addEventListener('DOMContentLoaded', () => {
     const detailsContainer = document.getElementById('details-container');
@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
             if (data.success) {
+                // Find the specific product from the list (or fetch single if endpoint supported it)
                 const product = data.products.find(p => p.id == productId);
                 if (product) {
                     renderProductDetails(product);
@@ -30,6 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     function renderProductDetails(product) {
+        // Prepare Component List
+        const componentsHtml = product.components 
+            ? product.components.split('\n').map(c => `<li>• ${c.trim()}</li>`).join('') 
+            : '<li>No components listed.</li>';
+
         detailsContainer.innerHTML = `
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-5 text-center mb-4">
@@ -40,44 +46,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p id="product-desc" class="lead mt-3">${product.description}</p>
                     <h4 class="text-warning mt-4">Included Components:</h4>
                     <ul id="product-components" class="list-unstyled fs-5">
-                        ${product.components.split('\n').map(c => `<li>• ${c.trim()}</li>`).join('')}
+                        ${componentsHtml}
                     </ul>
                     <p id="product-price" class="fw-bold mt-3">Price: ₱${parseFloat(product.price).toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
                     <div class="mt-4 d-flex flex-wrap gap-3">
-                        <button id="addToCartBtn" class="btn btn-warning text-dark fw-bold px-4" data-id="${product.id}">Add to Cart</button>
+                        <button id="addToCartBtn" class="btn btn-warning text-dark fw-bold px-4">Add to Cart</button>
                         <a href="prodserv.html" class="btn btn-outline-light fw-bold px-4">Go Back</a>
                     </div>
                 </div>
             </div>
         `;
 
-        // Initialize the "Add to Cart" button for this specific product
-        document.getElementById('addToCartBtn').addEventListener('click', () => {
-            addToCart(product);
-        });
-    }
-    
-    // --- Page-Specific Add to Cart Function ---
-    function addToCart(product) {
-        const name = product.name;
-        const price = parseFloat(product.price);
-        const img = product.image_url;
-        const id = product.id; // Crucial for future order tracking
-
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const existingItem = cart.find(item => item.id === id); // Use ID for unique identification
-
-        if (existingItem) {
-            existingItem.quantity++;
-        } else {
-            cart.push({ id, name, price, img, quantity: 1 });
+        // --- UPDATED ADD TO CART LISTENER ---
+        const addBtn = document.getElementById('addToCartBtn');
+        if (addBtn) {
+            addBtn.addEventListener('click', () => {
+                // Check if the server-side function exists (from cart.js)
+                if (window.addToCartDB) {
+                    window.addToCartDB(product.id, 1);
+                } else {
+                    console.error("addToCartDB function missing! Ensure cart.js is loaded.");
+                    alert("System Error: Unable to add to cart.");
+                }
+            });
         }
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-        
-        // Call external utility functions from scripts/cart.js
-        window.showPopup();
-        window.updateCartCount();
-        window.updateCartPreview();
     }
 });

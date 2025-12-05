@@ -55,7 +55,9 @@
 
                             <div id="user-greeting" class="d-none align-items-center gap-2">
                                 <span id="userName" class="text-white"></span>
-
+                                
+                                <a href="my_orders.html" class="btn btn-outline-light btn-sm">My Orders</a>
+                                
                                 <a id="admin-link" href="admin.php" class="btn btn-danger d-none">Admin Panel</a>
                                 <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
                             </div>
@@ -74,7 +76,6 @@
             </p>
 
             <div class="row justify-content-center">
-                <!-- Contact Info -->
                 <div class="col-lg-4 col-md-5 mb-4">
                     <div class="contact-info text-start p-4 rounded shadow-sm bg-transparent border border-light">
                         <h4 class="fw-bold text-warning mb-3">Get in Touch</h4>
@@ -93,24 +94,29 @@
                     </div>
                 </div>
 
-                <!-- Inquiry Form -->
                 <div class="col-lg-8 col-md-7">
                     <div class="contact-form shadow-lg p-4 rounded bg-transparent border border-light">
                         <h4 class="fw-bold mb-3 text-warning">Send us a Message</h4>
-                        <form action="submit_inquiry.php" method="post">
+                        
+                        <form id="contactForm">
                             <div class="mb-3">
                                 <label class="form-label">Name</label>
-                                <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Subject</label>
+                                <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter the subject" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Message</label>
-                                <textarea name="message" class="form-control" rows="5" placeholder="Enter your message" required></textarea>
+                                <textarea name="message" id="message" class="form-control" rows="5" placeholder="Enter your message" required></textarea>
                             </div>
 
                             <div id="contact-message" class="text-center mt-3 mb-3"></div>
@@ -130,7 +136,6 @@
                         <h2 class="text-warning fw-bold m-0">Login</h2>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-
                     <form id="loginForm" autocomplete="off">
                         <div class="mb-3">
                             <label class="form-label text-light">Email or Username</label>
@@ -138,17 +143,20 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-light">Password</label>
-                            <input type="password" name="password" class="form-control" required>
+                            <div class="input-group">
+                                <input type="password" name="password" class="form-control" required>
+                                <span class="input-group-text toggle-password">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </span>
+                            </div>
                         </div>
                         <div id="loginMessage" class="text-center mb-2"></div>
                         <button type="submit" class="btn btn-custom w-100 mb-2">Login</button>
                     </form>
-                        <p class="text-center mt-3"> Don’t have an account? <a href="#" id="switchToSignup" class="text-warning fw-bold">Create Account</a></p>
-                    </div>
-                </div>
+                </div></div>
             </div>
         </div>
-
+        
         <!-- Signup Modal -->
         <div class="modal fade" id="signupModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -172,11 +180,21 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-light">Password</label>
-                            <input type="password" name="password" class="form-control" required>
+                            <div class="input-group">
+                                <input type="password" name="password" class="form-control" required>
+                                <span class="input-group-text toggle-password">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </span>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-light">Confirm Password</label>
-                            <input type="password" name="confirmPassword" class="form-control" required>
+                            <div class="input-group">
+                                <input type="password" name="confirmPassword" class="form-control" required>
+                                <span class="input-group-text toggle-password">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </span>
+                            </div>
                         </div>
                         <div id="signupMessage" class="text-center mb-2"></div>
                         <button type="submit" class="btn btn-custom w-100 mb-2">Sign Up</button>
@@ -186,7 +204,7 @@
             </div>
         </div>
 
-        <!-- Footer -->
+        <!-- Footer-->
         <footer>
             <div class="container py-4 text-center">
                 <div class="row justify-content-center">
@@ -213,9 +231,9 @@
                     <div class="col-md-3 mb-3">
                         <h5 class="text-warning fw-bold">Follow Us</h5>
                         <div class="social-icons d-flex justify-content-center">
-                            <a href="https://www.facebook.com/byte.technology.2025"><ion-icon name="logo-facebook"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
                             <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
-                            <a href="https://www.youtube.com/@ByteTechnology-IoT"><ion-icon name="logo-youtube"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-youtube"></ion-icon></a>
                         </div>
                     </div>
                 </div>
@@ -225,8 +243,11 @@
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Autherntication JS -->
+        <!-- Authentication JS -->
         <script src="scripts/auth.js"></script>
+        
+        <!-- Contact JS -->
+        <script src="scripts/contact.js"></script>
 
         <!-- Ionicons -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

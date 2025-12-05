@@ -1,10 +1,12 @@
 /**
  * scripts/services.js
- * Fetches and displays services on the public prodserv.html page.
+ * Fetches services and renders them on prodserv.html.
+ * Adds the service name to the "Inquire Now" link.
  */
 document.addEventListener('DOMContentLoaded', () => {
     const servicesGrid = document.getElementById('services-grid');
 
+    // 1. Fetch Services from Backend
     function fetchServices() {
         fetch('php/public_get_services.php')
             .then(res => res.json())
@@ -21,25 +23,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    // 2. Render HTML Cards
     function renderServices(services) {
         if (!services || services.length === 0) {
             servicesGrid.innerHTML = `<p class="text-light">No services available at the moment.</p>`;
             return;
         }
 
-        servicesGrid.innerHTML = ''; // Clear loading message
+        servicesGrid.innerHTML = ''; 
 
         services.forEach(service => {
-            // 1. Format Price
+            // Format Price
             const priceFormatted = parseFloat(service.price).toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             });
 
-            // 2. Handle Image (use placeholder if empty)
+            // Handle Image
             const imageUrl = service.image_url ? service.image_url : 'https://placehold.co/400x300/222/FFF?text=Service';
 
-            // 3. Handle Breakdown (Convert newlines to <li>)
+            // Handle Breakdown List
             let breakdownHtml = '';
             if (service.breakdown) {
                 const lines = service.breakdown.split('\n');
@@ -52,7 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 breakdownHtml += '</ul>';
             }
 
-            // 4. Create Card HTML
+            // --- IMPORTANT: Create the link with the service name ---
+            // encodeURIComponent ensures spaces and special chars don't break the link
+            const inquiryLink = `contact.html?service=${encodeURIComponent(service.name)}`;
+
             const col = document.createElement('div');
             col.className = 'col-md-6 col-lg-4 d-flex align-items-stretch';
 
@@ -67,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${breakdownHtml ? `<div class="border-top border-secondary pt-2 mt-2"><strong>Includes:</strong>${breakdownHtml}</div>` : ''}
                         
                         <div class="mt-auto pt-3">
-                            <a href="contact.html" class="btn btn-custom w-100">Inquire Now</a>
+                            <a href="${inquiryLink}" class="btn btn-custom w-100">Inquire Now</a>
                         </div>
                     </div>
                 </div>
@@ -76,6 +82,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize
     fetchServices();
 });

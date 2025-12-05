@@ -3,11 +3,13 @@
  * Fetches live statistics from the server and updates the admin dashboard cards.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // References to the HTML elements in admin.php
+    // References
     const salesEl = document.getElementById('total-sales');
     const ordersEl = document.getElementById('total-orders');
     const productsEl = document.getElementById('total-products');
     const usersEl = document.getElementById('total-users');
+    const servicesEl = document.getElementById('total-services'); // New
+    const inquiriesEl = document.getElementById('total-inquiries'); // New
 
     fetch('php/get_dashboard_stats.php')
         .then(res => res.json())
@@ -25,6 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (ordersEl) ordersEl.textContent = data.orders;
                 if (productsEl) productsEl.textContent = data.products;
                 if (usersEl) usersEl.textContent = data.users;
+                
+                // 3. New Counts
+                if (servicesEl) servicesEl.textContent = data.services;
+                if (inquiriesEl) inquiriesEl.textContent = data.inquiries;
             } else {
                 console.error("Failed to fetch dashboard stats:", data.message);
             }

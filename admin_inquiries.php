@@ -23,7 +23,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
-        <title>Manage Products - Admin Panel</title>
+        <title>Inquiries - Admin Panel</title>
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -36,28 +36,19 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
         <!-- Header & NavBar -->
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark" style="background: rgba(0, 0, 0, 0.8);">
-                <!-- 'container-fluid' allows full width, 'px-4' adds small spacing from the absolute edge -->
                 <div class="container-fluid px-4">
-                    
-                    <!-- Logo / Brand (Far Left) -->
-                    <a class="navbar-brand fw-bold text-warning" href="index.html">
-                        Byte Technology (View Site)
-                    </a>
-
+                    <a class="navbar-brand fw-bold text-warning" href="index.html">Byte Technology (View Site)</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        
-                        <!-- Navigation Links (Centered) -->
-                        <!-- mx-auto pushes content to the center, keeping Logo Left and Auth Right -->
                         <ul class="navbar-nav mx-auto gap-4">
                             <li class="nav-item">
                                 <a class="nav-link" href="admin.php">Dashboard</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="admin_products.php">Manage Products</a>
+                                <a class="nav-link" href="admin_products.php">Manage Products</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="admin_services.php">Manage Services</a>
@@ -69,16 +60,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
                                 <a class="nav-link" href="admin_orders.php">View Orders</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="admin_inquiries.php">Inquiries</a>
+                                <a class="nav-link active" href="admin_inquiries.php">Inquiries</a>
                             </li>
                         </ul>
 
-                        <!-- Auth Container (Far Right) -->
                         <div id="auth-container" class="d-flex align-items-center">
-                            <button id="loginBtn" type="button" class="btn btn-custom d-none" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                Login / Sign Up
-                            </button>
-                            
                             <div id="user-greeting" class="d-flex align-items-center gap-2">
                                 <span id="userName" class="text-white"></span>
                                 <button id="logoutBtn" class="btn btn-outline-warning">Logout</button>
@@ -91,33 +77,59 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
 
         <!-- Main Contents -->
         <main class="container my-5">
-            <h2 class="display-5 fw-bold text-center mb-4">Manage <span>Products</span></h2>
+            <h2 class="display-5 fw-bold text-center mb-5">Customer <span>Inquiries</span></h2>
             
-            <!-- Message container for success/error alerts -->
             <div id="message-container" class="mt-3 mb-3"></div>
 
-            <!-- Add Product Button -->
-            <div class="d-flex justify-content-end mb-3">
-                <a href="admin_edit_product.php" class="btn btn-custom">Add New Product</a>
-            </div>
-
-            <!-- Products Table -->
             <div class="table-responsive about-card p-4 admin-table-container">
                 <table class="table table-dark table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th class="text-end">Actions</th>
+                            <th style="width: 15%">Date</th>
+                            <th style="width: 20%">From</th>
+                            <th style="width: 25%">Subject</th>
+                            <th style="width: 15%">Status</th>
+                            <th style="width: 10%" class="text-end">Action</th>
                         </tr>
                     </thead>
-                    <tbody id="products-table-body">
-                        <!-- Products will be loaded here by JavaScript -->
+                    <tbody id="inquiries-table-body">
+                        <tr><td colspan="4" class="text-center">Loading inquiries...</td></tr>
                     </tbody>
                 </table>
             </div>
         </main>
+        
+        <div class="modal fade" id="viewInquiryModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content bg-dark text-white border-secondary">
+                    <div class="modal-header border-secondary">
+                        <h5 class="modal-title text-warning fw-bold">View Message</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="text-secondary small">Sender Details:</label>
+                            <p class="fw-bold mb-0" id="modal-name"></p>
+                            <p class="small text-light" id="modal-email"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="text-secondary small">Subject:</label>
+                            <h5 id="modal-subject" class="text-warning"></h5>
+                        </div>
+                        <div class="mb-3">
+                            <label class="text-secondary small">Message:</label>
+                            <div class="p-3 rounded bg-secondary bg-opacity-25 border border-secondary" 
+                                 id="modal-message" 
+                                 style="white-space: pre-wrap; min-height: 150px;"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-secondary">
+                        <a href="#" id="reply-link" class="btn btn-custom">Reply via Email</a>
+                        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Footer -->
         <footer>
@@ -152,12 +164,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
         <!-- Autherntication JS -->
         <script src="scripts/auth.js"></script>
 
-        <!-- Product Management JS -->
-        <script src="scripts/admin_products.js"></script>
-
-        <!-- Ionicons -->
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
+        <!-- Inquiries Management JS -->
+        <script src="scripts/admin_inquiries.js"></script>
+        
     </body>
 </html>

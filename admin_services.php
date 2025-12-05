@@ -9,8 +9,9 @@ header("Pragma: no-cache");
 
 // Check if the user is NOT logged in OR if their position is NOT 'admin'.
 if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
+    // Redirect them to the main page
     header('Location: index.html');
-    exit;
+    exit; // Stop executing the rest of the PHP and HTML
 }
 ?>
 
@@ -19,6 +20,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="0">
         <title>Manage Services - Admin Panel</title>
 
         <!-- Bootstrap CSS -->
@@ -63,6 +67,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['position'] !== 'admin') {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="admin_orders.php">View Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_inquiries.php">Inquiries</a>
                             </li>
                         </ul>
 

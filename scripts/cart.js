@@ -1,56 +1,79 @@
 /**
- * Centralized cart utilities shared across e-commerce pages.
- * It handles the cart count display, preview hover logic, and the confirmation pop-up.
+ * scripts/cart.js
+ * Manages Server-Side Cart interactions.
  */
 document.addEventListener('DOMContentLoaded', () => {
-
-    // --- Element References (Shared Cart UI) ---
-    const cartPopup = document.getElementById('cart-popup');
+    // --- Global References ---
     const cartCount = document.getElementById('cart-count');
     const previewList = document.getElementById('cart-preview-items');
-    const cartContainer = document.getElementById('cart-container');
-    const cartPreview = document.getElementById('cart-preview');
+    const cartPopup = document.getElementById('cart-popup');
 
-    // --- Cart Utility Functions (Exposed to the window for use by page-specific scripts) ---
+    // --- Exposed Global Functions ---
 
-    // 1. Show the "Added to Cart!" pop-up
-    window.showPopup = function() {
-        if (cartPopup) {
-            cartPopup.classList.add('show');
-            setTimeout(() => cartPopup.classList.remove('show'), 1200);
-        }
-    }
+    // 1. Fetch Cart Data from Server
+    window.fetchCart = function(callback) {
+        fetch('php/get_cart.php')
+            .then(res => res.json())
+            .then(data => {
+                const cart = data.cart || [];
+                updateHeaderUI(cart);
+                if (callback) callback(cart);
+            })
+            .catch(err => console.error("Cart fetch error:", err));
+    };
 
-    // 2. Update the main cart item count in the header
-    window.updateCartCount = function() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    // 2. Add Item to Cart (Called by Products/Details page)
+    window.addToCartDB = function(productId, quantity = 1) {
+        fetch('php/add_to_cart.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ product_id: productId, quantity: quantity })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                showPopup('Added to Cart!');
+                window.fetchCart(); // Refresh UI
+            } else {
+                // If not logged in or other error
+                alert(data.message);
+                if (data.message.includes('login')) {
+                    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                    loginModal.show();
+                }
+            }
+        });
+    };
+
+    // --- Internal Helpers ---
+
+    function updateHeaderUI(cart) {
+        // Update Badge Count
         if (cartCount) {
-            // Sum of all item quantities
-            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
         }
-    }
 
-    // 3. Update the cart preview dropdown content
-    window.updateCartPreview = function() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        // Update Preview Dropdown
         if (previewList) {
-            previewList.innerHTML = cart.length ? "" : "<li>No items in cart</li>";
+            previewList.innerHTML = cart.length ? "" : "<li class='text-center p-2'>Cart is empty</li>";
             cart.forEach(item => {
-                previewList.appendChild(document.createElement('li')).textContent = `${item.name} × ${item.quantity}`;
+                const li = document.createElement('li');
+                li.className = 'd-flex justify-content-between px-2 py-1';
+                li.innerHTML = `<span class="text-truncate" style="max-width: 150px;">${item.name}</span> <span class="text-warning">x${item.quantity}</span>`;
+                previewList.appendChild(li);
             });
         }
     }
-    
-    // --- Initializers and Event Listeners ---
 
-    // Show/hide cart preview on hover
-    if (cartContainer && cartPreview) {
-        // Ensures the preview shows when the cart button/container is hovered
-        cartContainer.addEventListener('mouseenter', () => cartPreview.classList.add('show'));
-        cartContainer.addEventListener('mouseleave', () => cartPreview.classList.remove('show'));
+    function showPopup(msg) {
+        if (cartPopup) {
+            cartPopup.textContent = msg;
+            cartPopup.classList.add('show');
+            setTimeout(() => cartPopup.classList.remove('show'), 1500);
+        }
     }
 
-    // Run initial updates for any page load
-    updateCartCount();
-    updateCartPreview();
+    // Initial Load
+    window.fetchCart();
 });
